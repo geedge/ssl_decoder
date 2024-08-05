@@ -1,0 +1,23 @@
+VERS_2.4{
+global: 
+	extern "C++" {
+		*ssl_decoder_init*;
+		*ssl_decoder_exit*;
+		*ssl_message_type_get*;
+		*ssl_message_header_id_get*;
+		*ssl_message_header_flag_get0*;
+		*ssl_message_query_question_get0*;
+		*ssl_query_question_qname_get0*;
+		*ssl_query_question_qtype_get0*;
+		*ssl_query_question_qclass_get0*;
+		*ssl_message_answer_resource_record_get0*;
+		*ssl_message_authority_resource_record_get0*;
+		*ssl_message_additional_resource_record_get0*;
+		*ssl_message_resource_record_json_exporter*;
+		*ssl_message_uuid_get0*;
+		*ssl_message_resource_record_is_sslsec*;
+		*ssl_message_resource_record_cname_json_exporter*;
+		*GIT*;
+	};
+  local: *;
+};

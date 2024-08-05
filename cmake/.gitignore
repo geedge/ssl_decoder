@@ -1,0 +1,5 @@
+build
+__view
+*.o
+*.so
+*.a

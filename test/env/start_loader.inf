@@ -1,0 +1,17 @@
+[PLUGINFO]
+PLUGNAME=stellar_start_loader
+SO_PATH=./plug/stellar_on_sapp/stellar_on_sapp.so
+INIT_FUNC=STELLAR_START_LOADER_INIT
+DESTROY_FUNC=STELLAR_START_LOADER_EXIT
+
+[TCP_ALL]
+FUNC_FLAG=ALL
+FUNC_NAME=stellar_on_sapp_tcpall_entry
+
+[TCP]
+FUNC_FLAG=ALL
+FUNC_NAME=stellar_on_sapp_tcp_entry
+
+[UDP]
+FUNC_FLAG=ALL
+FUNC_NAME=stellar_on_sapp_udp_entry

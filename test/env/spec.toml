@@ -1,0 +1,11 @@
+# stellar_plugin.toml
+#
+[[plugin]]
+path = "./stellar_plugin/ssl_decoder.so"
+init = "ssl_decoder_init"
+exit = "ssl_decoder_exit"
+
+[[plugin]]
+path = "./stellar_plugin/ssl_decoder_test_plug.so"
+init = "ssl_decoder_test_init"
+exit = "ssl_decoder_test_exit"

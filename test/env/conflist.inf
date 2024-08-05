@@ -1,0 +1,9 @@
+[platform]
+./plug/stellar_on_sapp/start_loader.inf
+
+
+[protocol]
+
+
+[business]
+./plug/stellar_on_sapp/defer_loader.inf

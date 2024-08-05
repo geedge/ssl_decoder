@@ -1,0 +1,5 @@
+.vscode/
+build*
+SI/*
+cmake-build-*
+*.si4project

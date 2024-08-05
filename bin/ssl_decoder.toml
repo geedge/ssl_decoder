@@ -1,0 +1,12 @@
+[decoder]
+[decoder.ssl]
+port=[443]
+
+[decoder.ssl.limited]
+
+[decoder.ssl.local_stat]
+# stat_per_thread_enable value in [yes,no]
+stat_per_thread_enable="no"
+stat_name="SSL_DECODER"
+stat_interval_time_s=5
+stat_output="metrics/ssl_decoder_local_stat.json"
