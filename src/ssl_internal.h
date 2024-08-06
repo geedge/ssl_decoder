@@ -62,7 +62,7 @@ struct ssl_server_hello
 	uint32_t random_gmt_time;
 	
 	UT_array *extensions;
-	struct ssl_decoder_ltv *ja3s;
+	struct ssl_decoder_ltv ja3s;
 	struct ssl_decoder_ltv ltv[SSL_HELLO_LTV_MAX];
 };
 

@@ -240,10 +240,6 @@ void ssl_handshake_server_key_exchange_decode()
 
 }
 
-void ssl_handshake_server_hello_decode()
-{
-
-}
 
 int32_t ssl_read_u8(uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset, uint8_t *value)
 {
@@ -258,22 +254,6 @@ int32_t ssl_read_u8(uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset, uint8
 	}
 	
 	(*pdata_offset)++;
-	return SSL_DECODER_TRUE;
-}
-
-int32_t ssl_read_le_u16(uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset, uint16_t *value)
-{
-	if(pdata_sz<(*pdata_offset)+2)
-	{
-		return SSL_DECODER_FALSE;
-	}
-	
-	if(value!=NULL)
-	{
-		memcpy((uint8_t *)value, pdata+(*pdata_offset), 2);
-	}
-
-	(*pdata_offset)+=2;
 	return SSL_DECODER_TRUE;
 }
 
@@ -420,6 +400,85 @@ int32_t ssl_server_name_decode(struct ssl_decoder_ltv *sni, uint8_t *pdata, uint
 	return SSL_DECODER_TRUE;
 }
 
+struct ssl_server_hello *ssl_handshake_server_hello_decode(uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset)
+{
+	int32_t total_len; //3
+	int32_t ret=ssl_read_be_u24(pdata, pdata_sz, pdata_offset, (uint8_t *)&(total_len));
+	if(total_len<0) /*CLIENT_HELLO_HDRLEN: 4 means client_type+len*/
+	{
+		return NULL;
+	}
+
+	struct ssl_server_hello *shello=(struct ssl_server_hello *)CALLOC(struct ssl_server_hello, 1);
+	ssl_read_be_u16(pdata, pdata_sz, pdata_offset, &(shello->version));
+	ssl_read_be_u32(pdata, pdata_sz, pdata_offset, &(shello->random_gmt_time));
+
+	for(int i=1; i<SSL_HELLO_LTV_MAX; i++)
+	{
+		struct ssl_decoder_ltv *ltv=&(shello->ltv[i]);
+		switch(i)
+		{
+			case	SSL_HELLO_LTV_RANDOM_BYTES:
+				ret=ssl_decoder_random_bytes_get(ltv, SSL_DECODER_NONE, pdata, pdata_sz, pdata_offset);
+				break;
+			case	SSL_HELLO_LTV_SESSION:
+				ret=ssl_decoder_ltv_get(ltv, SSL_DECODER_L1V, pdata, pdata_sz, pdata_offset);
+				break;
+			case	SSL_HELLO_LTV_CIPERSUITES:
+				shello->ltv[i].lv_u16=2;
+				shello->ltv[i].value=pdata+(*pdata_offset);
+				(*pdata_offset)+=2;
+				break;
+			case	SSL_HELLO_LTV_COMPRESS_METHOD:
+				shello->ltv[i].lv_u16=1;
+				shello->ltv[i].value=pdata+(*pdata_offset);
+				(*pdata_offset)+=1;
+				break;
+			default:
+				break;
+		}
+
+		if(ret==SSL_DECODER_FALSE)
+		{
+			FREE(shello);
+			return NULL;
+		}
+	}
+
+	/*get extension*/
+	uint16_t extension_len=0;
+	ret=ssl_read_be_u16(pdata, pdata_sz, pdata_offset, &extension_len);
+	if(ret==SSL_DECODER_FALSE || (extension_len+(*pdata_offset)>pdata_sz))
+	{
+		FREE(shello);
+		return NULL;
+	}
+
+	if(extension_len==0)
+	{
+		return shello;
+	}
+
+	size_t offset=(*pdata_offset);
+	utarray_new(shello->extensions, &UT_ssl_hello_extension_icd);
+
+	for(size_t i=0; pdata_sz>offset && (offset-(*pdata_offset))<extension_len; i++) // min len of ext is 4 byte
+	{
+		struct ssl_decoder_ltv ltv={0};
+		ret=ssl_decoder_ltv_get(&ltv, SSL_DECODER_L2TV, pdata, pdata_sz, &offset);
+		if(ret==SSL_DECODER_FALSE)
+		{
+			break;
+		}
+
+		utarray_push_back(shello->extensions, &ltv);
+	}
+
+	(*pdata_offset)=offset;
+	
+	return shello;
+}
+
 struct ssl_client_hello *ssl_handshake_client_hello_decode(uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset)
 {
 	int32_t total_len; //3
@@ -464,7 +523,7 @@ struct ssl_client_hello *ssl_handshake_client_hello_decode(uint8_t *pdata, size_
 	/*get extension*/
 	uint16_t extension_len=0;
 	ret=ssl_read_be_u16(pdata, pdata_sz, pdata_offset, &extension_len);
-	if(ret==SSL_DECODER_FALSE)
+	if(ret==SSL_DECODER_FALSE || (extension_len+(*pdata_offset)>pdata_sz))
 	{
 		FREE(chello);
 		return NULL;
@@ -473,12 +532,6 @@ struct ssl_client_hello *ssl_handshake_client_hello_decode(uint8_t *pdata, size_
 	if(extension_len==0)
 	{
 		return chello;
-	}
-
-	if(extension_len+(*pdata_offset)>pdata_sz)
-	{
-		FREE(chello);
-		return NULL;
 	}
 
 	utarray_new(chello->extensions, &UT_ssl_hello_extension_icd);
@@ -521,6 +574,54 @@ struct ssl_client_hello *ssl_handshake_client_hello_decode(uint8_t *pdata, size_
 	}
 
 	return chello;
+}
+
+int32_t ssl_server_hello_ja3s_generate(struct ssl_server_hello *shello)
+{
+	if(shello==NULL)
+	{
+		return SSL_DECODER_FALSE;
+	}
+
+	UT_string *ja3s_string;
+	utstring_new(ja3s_string);
+	utstring_printf(ja3s_string, "%u,", shello->version);
+
+	int32_t flag=SSL_DECODER_FALSE;
+	size_t offset=0;
+	struct ssl_decoder_ltv *cipher_suites=&(shello->ltv[SSL_HELLO_LTV_CIPERSUITES]);
+	for(; offset<cipher_suites->lv_u16; )
+	{
+		uint16_t cipher_suite=0;
+		ssl_read_be_u16(cipher_suites->value, cipher_suites->lv_u16, &offset, &cipher_suite);
+		if(ssl_is_grease_value(cipher_suite))
+		{
+			continue;
+		}
+		
+		utstring_printf(ja3s_string, "%s%u", ((flag==SSL_DECODER_FALSE) ? "" : "-"), cipher_suite);
+		flag=SSL_DECODER_TRUE;
+	}
+	
+	utstring_printf(ja3s_string, "%s", ",");
+
+	flag=SSL_DECODER_FALSE;
+	for(uint32_t i=0; i<utarray_len(shello->extensions); i++)
+	{
+		struct ssl_decoder_ltv *ext=(struct ssl_decoder_ltv *)utarray_eltptr(shello->extensions, i);
+		if(ext==NULL || ssl_is_grease_value(ext->vtype))
+		{
+			continue;
+		}
+
+		utstring_printf(ja3s_string, "%s%u", ((flag==SSL_DECODER_FALSE) ? "" : "-"), ext->vtype);
+		flag=SSL_DECODER_TRUE;
+	}
+
+	ssl_hello_md5sum(&(shello->ja3s), utstring_body(ja3s_string), utstring_len(ja3s_string));
+	utstring_free(ja3s_string);
+
+	return SSL_DECODER_TRUE;
 }
 
 int32_t ssl_client_hello_ja3_generate(struct ssl_client_hello *chello)
@@ -631,6 +732,7 @@ void ssl_handshake_decode(struct ssl_decoder_plugin_env *plugin_env, struct sess
 	}
 
 	struct ssl_client_hello *chello=NULL;
+	struct ssl_server_hello *shello=NULL;
 	struct ssl_handshake_type *handshake_type=(struct ssl_handshake_type *)(segment_buff+(*segment_buff_offset));
 	(*segment_buff_offset)+=sizeof(struct ssl_handshake_type);
 	switch(handshake_type->content_type)
@@ -640,13 +742,14 @@ void ssl_handshake_decode(struct ssl_decoder_plugin_env *plugin_env, struct sess
 			ssl_client_hello_ja3_generate(chello);
 			break;
 		case	SSL_HANDSHAKE_SERVER_HELLO:
-			ssl_handshake_server_hello_decode();
+			shello=ssl_handshake_server_hello_decode(segment_buff, segment_buff_sz, segment_buff_offset);
+			ssl_server_hello_ja3s_generate(shello);
 			break;
 		case	SSL_HANDSHAKE_CERTIFICATE:
-			ssl_handshake_certificate_decode();
+			// ssl_handshake_certificate_decode();
 			break;
 		case	SSL_HANDSHAKE_SERVER_KEY_EXCHANGE:
-			ssl_handshake_server_key_exchange_decode();
+			// ssl_handshake_server_key_exchange_decode();
 			break;
 		default:
 			break;
