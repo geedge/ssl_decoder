@@ -1,10 +1,11 @@
 [
     {
         "Tuple4": "192.168.64.8.53466>185.63.190.2.443",
-        "ssl_sni": "fermer.ru",
-        "ssl_ech": "1",
         "ssl_client_version": "TLS1.2",
+        "ssl_sni": "fermer.ru",
         "ssl_ja3_hash": "afa0d02228072fc4b02a7772a668c64a",
+        "ssl_esni":     0,
+        "ssl_ech":  1,
         "name": "SSL_RESULT_1"
     }
 ]

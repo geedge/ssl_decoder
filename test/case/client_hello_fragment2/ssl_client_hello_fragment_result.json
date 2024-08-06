@@ -1,0 +1,30 @@
+[
+    {
+        "Tuple4": "192.168.58.17.49218>23.216.55.29.443",
+        "ssl_sni": "www.missionsports.org",
+        "ssl_client_version": "TLS1.2",
+        "ssl_esni":     0,
+        "ssl_ech":      0,
+        "ssl_ja3_hash": "a69708a64f853c3bcc214c2c5faf84f3",
+        "ssl_server_version": "TLS1.2",
+        "ssl_ja3s_hash": "10a2ad147a870ef37af153dea9fe4dd3",
+        "ssl_cert_version":     "v3",
+        "ssl_cert_issuer": "DigiCert TLS RSA SHA256 2020 CA1;DigiCert Inc;;;;;US",
+        "ssl_cert_issuer_common": "DigiCert TLS RSA SHA256 2020 CA1",
+        "ssl_cert_issuer_organization": "DigiCert Inc",
+        "ssl_cert_issuer_country": "US",
+        "ssl_cert_subject": "a248.e.akamai.net;Akamai Technologies, Inc.;;Cambridge;;Massachusetts;US",
+        "ssl_cert_subject_common": "a248.e.akamai.net",
+        "ssl_cert_subject_organization": "Akamai Technologies, Inc.",
+        "ssl_cert_subject_country": "US",
+        "ssl_cert_subject_state_or_Province": "Massachusetts",
+        "ssl_cert_subject_locality": "Cambridge",
+        "ssl_cert_subject_alt_name": "a248.e.akamai.net;*.akamaized.net;*.akamaized-staging.net;*.akamaihd.net;*.akamaihd-staging.net;",
+        "ssl_cert_serial_number": "0x0d61f7742d583251a2b8d5a26a1dda0b",
+        "ssl_cert_signature_algorithm": "1.2.840.113549.1.1.11",
+        "ssl_cert_validity_before": "230516000000Z",
+        "ssl_cert_validity_after": "240515235959Z",
+        "ssl_cert_algorithm_identifier": "1.2.840.113549.1.1.11",
+        "name": "SSL_RESULT_1"
+    }
+]

@@ -38,7 +38,28 @@ extern "C"
 #include "ssl_internal.h"
 #include "ssl_decoder.h"
 
+#define	SSL_TRUNK_MESSAGE_TOPIC	"SSL_TRUNK_MESSAGE"
+
 UT_icd UT_ssl_hello_extension_icd={sizeof(struct ssl_decoder_ltv), NULL, NULL, NULL};
+
+#define	SSL_TRUNK_MAGIC	0x5a5a5a5a
+enum SSL_TRUNK_TYPE
+{
+	SSL_TRUNK_TYPE_NONE=0,
+	SSL_TRUNK_TYPE_MOVE,
+	SSL_TRUNK_TYPE_APPEND,
+	SSL_TRUNK_TYPE_FREE,
+	SSL_TRUNK_TYPE_MAX,
+};
+
+struct ssl_trunk_message
+{
+	uint32_t magic;
+	enum SSL_TRUNK_TYPE type;
+	struct ssl_record_trunk *record_trunk;
+	uint8_t *pdata;
+	size_t pdata_sz;
+};
 
 struct ssl_certificate_chain
 {
@@ -62,9 +83,10 @@ struct ssl_record_header
 
 struct ssl_record_trunk
 {
-	struct ssl_record_header header;
-	size_t cache_len;
-	uint8_t* cache_buff;
+	uint8_t is_contains_header;
+	struct ssl_record_header record_hdr;
+	size_t data_sz;
+	uint8_t *data;
 };
 
 #define	SSL_NAME_MAX	256
@@ -96,6 +118,8 @@ struct ssl_decoder_plugin_env
 	int32_t n_net_port;
     int32_t max_cache_len;
     struct message_schema ssl;
+	struct message_schema ptrunk;
+	struct message_schema strunk;
 	struct message_schema tcp_stream;
 	struct ssl_decoder_stat stat;
 };
@@ -105,100 +129,6 @@ struct ssl_decoder_context
 	int32_t identify_pkt_count;
     struct ssl_record_trunk record_trunk;
 };
-
-void ssl_hello_md5sum(struct ssl_decoder_ltv *ltv, const char *str, size_t str_sz)
-{
-	MD5_CTX ctx;
-	uint8_t md5[MD5_DIGEST_LENGTH];
-
-    MD5_Init(&ctx);
-    MD5_Update(&ctx, str, str_sz);
-    MD5_Final(md5, &ctx);
-
-	size_t offset=0;
-	size_t buff_sz=MD5_DIGEST_LENGTH*2+1;
-	char buff[buff_sz];
-
-    for(int32_t n=0; n<MD5_DIGEST_LENGTH; n++)
-    {
-        offset+=snprintf(buff+offset, buff_sz-offset, "%.2x", md5[n]);
-    }
-
-	ltv->lv_u32=offset;
-	ltv->type=SSL_DECODER_NONE;
-	ltv->value=(uint8_t *)malloc(offset);
-	memcpy(ltv->value, buff, offset);
-}
-
-// https://tools.ietf.org/html/draft-davidben-tls-grease-00
-static int32_t ssl_is_grease_value(unsigned short val)
-{
-	if((val & 0x0f)!=0x0a)
-	{
-		return SSL_DECODER_FALSE;
-	}
-
-	if((val & 0xff) != ((val >> 8) & 0xff))
-	{
-		return SSL_DECODER_FALSE;
-	}
-
-	return SSL_DECODER_TRUE;
-}
-
-void ssl_trunk_free(struct ssl_record_trunk *record_trunk)
-{
-    if(record_trunk!=NULL)
-    {
-        if(record_trunk->cache_buff!=NULL)
-        {
-            FREE(record_trunk->cache_buff);
-            record_trunk->cache_buff=NULL;
-        }
-
-        record_trunk={0};
-    }
-}
-
-void ssl_trunk_cache(struct ssl_record_trunk *record_trunk, uint8_t *fragment, size_t fragment_sz)
-{
-	if(fragment==NULL || fragment_sz==0)
-	{
-		return ;
-	}
-
-    if(record_trunk->cache_buff==NULL)
-    {
-        record_trunk->cache_buff=(uint8_t *)malloc(fragment_sz);
-    }
-
-    memmove(record_trunk->cache_buff+record_trunk->cache_len, fragment, fragment_sz);
-    record_trunk->cache_len+=fragment_sz;
-}
-
-int32_t is_trunk_cache(struct ssl_record_trunk *record_trunk)
-{
-    return ((record_trunk->cache_len>0) ? SSL_DECODER_TRUE : SSL_DECODER_FALSE);
-}
-
-void ssl_recod_buff_get0(struct ssl_record_trunk *record_trunk, uint8_t **record_buff, size_t *record_buff_sz)
-{
-    if(!is_trunk_cache(record_trunk) || (*record_buff_sz)<=SSL_RECORD_HEADER_SZ)
-    {
-        return ;
-    }
-
-    ssl_trunk_cache(record_trunk, (*record_buff), (*record_buff_sz));
-
-    (*record_buff)=record_trunk->cache_buff;
-    (*record_buff_sz)=record_trunk->cache_len;
-}
-
-void ssl_handshake_server_key_exchange_decode()
-{
-
-}
-
 
 int32_t ssl_read_u8(uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset, uint8_t *value)
 {
@@ -267,6 +197,206 @@ int32_t ssl_read_be_u32(uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset, u
 	
 	(*pdata_offset)+=4;
 	return SSL_DECODER_TRUE;
+}
+
+void ssl_hello_md5sum(struct ssl_decoder_ltv *ltv, const char *str, size_t str_sz)
+{
+	MD5_CTX ctx;
+	uint8_t md5[MD5_DIGEST_LENGTH];
+
+    MD5_Init(&ctx);
+    MD5_Update(&ctx, str, str_sz);
+    MD5_Final(md5, &ctx);
+
+	size_t offset=0;
+	size_t buff_sz=MD5_DIGEST_LENGTH*2+1;
+	char buff[buff_sz];
+
+    for(int32_t n=0; n<MD5_DIGEST_LENGTH; n++)
+    {
+        offset+=snprintf(buff+offset, buff_sz-offset, "%.2x", md5[n]);
+    }
+
+	ltv->lv_u32=offset;
+	ltv->type=SSL_DECODER_NONE;
+	ltv->value=(uint8_t *)malloc(offset);
+	memcpy(ltv->value, buff, offset);
+}
+
+// https://tools.ietf.org/html/draft-davidben-tls-grease-00
+static int32_t ssl_is_grease_value(unsigned short val)
+{
+	if((val & 0x0f)!=0x0a)
+	{
+		return SSL_DECODER_FALSE;
+	}
+
+	if((val & 0xff) != ((val >> 8) & 0xff))
+	{
+		return SSL_DECODER_FALSE;
+	}
+
+	return SSL_DECODER_TRUE;
+}
+
+void ssl_trunk_free(struct ssl_record_trunk *record_trunk)
+{
+    if(record_trunk!=NULL)
+    {
+        if(record_trunk->data!=NULL)
+        {
+            FREE(record_trunk->data);
+        }
+
+		record_trunk->data=NULL;
+        record_trunk->data_sz=0;
+		record_trunk->is_contains_header=SSL_DECODER_TRUE;
+		record_trunk->record_hdr={0};
+    }
+}
+
+void ssl_trunk_cache(struct ssl_record_trunk *record_trunk, enum SSL_TRUNK_TYPE type, uint8_t *fragment, size_t fragment_sz)
+{
+	if(record_trunk==NULL || fragment==NULL || fragment_sz==0)
+	{
+		return ;
+	}
+
+	switch(type)
+	{
+		case	SSL_TRUNK_TYPE_MOVE:
+			{
+				uint8_t *tmp=(uint8_t *)malloc(fragment_sz);
+				memcpy(tmp, fragment, fragment_sz);
+				if(record_trunk->data!=NULL)
+				{
+					FREE(record_trunk->data);
+				}
+				record_trunk->data=tmp;
+				record_trunk->data_sz=fragment_sz;
+			}
+			break;
+		case	SSL_TRUNK_TYPE_APPEND:
+			record_trunk->data=(record_trunk->data==NULL) ? (uint8_t *)malloc(fragment_sz) : (uint8_t *)realloc(record_trunk->data, record_trunk->data_sz+fragment_sz);
+			memcpy(record_trunk->data+record_trunk->data_sz, fragment, fragment_sz);
+			record_trunk->data_sz+=fragment_sz;
+			break;
+		default:
+			break;
+	}
+}
+
+int32_t is_trunk_cache(struct ssl_record_trunk *record_trunk)
+{
+    return ((record_trunk->data_sz>0) ? SSL_DECODER_TRUE : SSL_DECODER_FALSE);
+}
+
+int32_t ssl_record_header_get(struct ssl_record_header *record_hdr, uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset)
+{
+	if(pdata_sz<(*pdata_offset)+SSL_RECORD_HEADER_SZ)
+	{
+		return SSL_DECODER_FALSE;
+	}
+
+	ssl_read_u8(pdata, pdata_sz, pdata_offset, &(record_hdr->content_type));
+	ssl_read_be_u16(pdata, pdata_sz, pdata_offset, &(record_hdr->version));
+	ssl_read_be_u16(pdata, pdata_sz, pdata_offset, &(record_hdr->total_len));
+
+	return SSL_DECODER_TRUE;
+}
+
+void ssl_recod_buff_get0(struct ssl_record_trunk *record_trunk, uint8_t **record_buff, size_t *record_buff_sz)
+{
+    if(!is_trunk_cache(record_trunk) && (*record_buff_sz)>SSL_RECORD_HEADER_SZ)
+    {
+        return ;
+    }
+
+	if(record_trunk->is_contains_header==SSL_DECODER_TRUE)
+	{
+		ssl_trunk_cache(record_trunk, SSL_TRUNK_TYPE_APPEND, (*record_buff), (*record_buff_sz));
+	}
+	else
+	{
+		size_t offset=0;
+		struct ssl_record_header record_hdr={0};
+		ssl_record_header_get(&record_hdr, *record_buff, *record_buff_sz, &offset);
+		if(record_hdr.content_type!=record_trunk->record_hdr.content_type)
+		{
+			ssl_trunk_free(record_trunk);
+			return ;
+		}
+
+		if((*record_buff_sz)<SSL_RECORD_HEADER_SZ)
+		{
+			return ;
+		}
+		
+		ssl_trunk_cache(record_trunk, SSL_TRUNK_TYPE_APPEND, (*record_buff)+SSL_RECORD_HEADER_SZ, (*record_buff_sz)-SSL_RECORD_HEADER_SZ);
+	}
+    
+
+    (*record_buff)=record_trunk->data;
+    (*record_buff_sz)=record_trunk->data_sz;
+}
+
+void ssl_trunk_message_segment_data_cb(struct session *ss, int32_t topic_id, const void *msg, void *per_session_ctx, void *penv)
+{
+	struct ssl_trunk_message *trunk_msg=(struct ssl_trunk_message *)msg;
+	if(trunk_msg==NULL || trunk_msg->magic!=SSL_TRUNK_MAGIC)
+	{
+		return ;
+	}
+
+	switch(trunk_msg->type)
+	{
+		case	SSL_TRUNK_TYPE_MOVE:
+			ssl_trunk_cache(trunk_msg->record_trunk, SSL_TRUNK_TYPE_MOVE, trunk_msg->pdata, trunk_msg->pdata_sz);
+			break;
+		case	SSL_TRUNK_TYPE_APPEND:
+			ssl_trunk_cache(trunk_msg->record_trunk, SSL_TRUNK_TYPE_APPEND, trunk_msg->pdata, trunk_msg->pdata_sz);
+			break;
+		case	SSL_TRUNK_TYPE_FREE:
+			ssl_trunk_free(trunk_msg->record_trunk);
+			break;
+		default:
+			break;
+	}
+}
+
+void ssl_trunk_message_publish(struct ssl_decoder_plugin_env *plugin_env, struct session *ss, struct ssl_record_trunk *record_trunk, uint8_t *pdata, size_t pdata_sz)
+{
+	struct ssl_trunk_message *message=(struct ssl_trunk_message *)malloc(sizeof(struct ssl_trunk_message));
+	message->magic=SSL_TRUNK_MAGIC;
+	message->record_trunk=record_trunk;
+	message->pdata=pdata;
+	message->pdata_sz=pdata_sz;
+	if(pdata_sz==0)
+	{
+		message->type=SSL_TRUNK_TYPE_FREE;
+	}
+	else
+	{
+		message->type=((is_trunk_cache(record_trunk)) ? SSL_TRUNK_TYPE_MOVE : SSL_TRUNK_TYPE_APPEND);
+	}
+
+	if(((long long)pdata_sz) <0)
+	{
+		abort();
+	}
+
+	session_mq_publish_message(ss, plugin_env->ptrunk.topic_id, (void *)message);
+}
+
+void ssl_trunk_message_free(struct session *sess, void *msg, void *msg_free_arg)
+{
+	struct ssl_trunk_message *trunk_msg=(struct ssl_trunk_message *)msg;
+	if(trunk_msg==NULL)
+	{
+		return ;
+	}
+
+	FREE(trunk_msg);
 }
 
 int32_t ssl_decoder_ltv_get(struct ssl_decoder_ltv *ltv, uint16_t type, uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset)
@@ -723,7 +853,7 @@ struct ssl_client_hello *ssl_handshake_client_hello_decode(uint8_t *pdata, size_
 
 		utarray_push_back(chello->extensions, &ltv);
 
-		switch(ltv.type)
+		switch(ltv.vtype)
 		{
 			case	SERVER_NAME_EXT_TYPE:
 				{
@@ -900,7 +1030,7 @@ int32_t ssl_client_hello_ja3_generate(struct ssl_client_hello *chello)
 	return SSL_DECODER_TRUE;
 }
 
-void ssl_message_publish(struct ssl_decoder_plugin_env *plugin_env, struct session *ss, enum ssl_message_type type, void *data)
+void ssl_message_publish(struct ssl_decoder_plugin_env *plugin_env, struct session *ss, enum ssl_message_type type, void *data, size_t data_sz)
 {
 	struct ssl_message *message=(struct ssl_message *)malloc(sizeof(struct ssl_message));
 	message->magic=SSL_MESSAGE_MAGIC;
@@ -908,10 +1038,10 @@ void ssl_message_publish(struct ssl_decoder_plugin_env *plugin_env, struct sessi
 	message->ss=ss;
 	message->plugin_env=plugin_env;
 	message->data=data;
+	message->data_sz=data_sz;
 
 	session_mq_publish_message(ss, plugin_env->ssl.topic_id, (void *)message);
 }
-
 
 void ssl_message_free(struct session *sess, void *msg, void *msg_free_arg)
 {
@@ -932,6 +1062,8 @@ void ssl_message_free(struct session *sess, void *msg, void *msg_free_arg)
 					{
 						utarray_free(chello->extensions);
 					}
+
+					FREE(message->data);
 				}
 				break;
 			case	SSL_MESSAGE_SERVER_HELLO:
@@ -941,6 +1073,8 @@ void ssl_message_free(struct session *sess, void *msg, void *msg_free_arg)
 					{
 						utarray_free(shello->extensions);
 					}
+
+					FREE(message->data);
 				}
 				break;
 			case	SSL_MESSAGE_CERTIFICATE:
@@ -955,102 +1089,111 @@ void ssl_message_free(struct session *sess, void *msg, void *msg_free_arg)
 					{
 						FREE(certificate->subject_key.value);
 					}
+
+					FREE(message->data);
 				}
 				break;
 			default:
 				break;
 		}
-
-		FREE(message->data);
 	}
 
 	FREE(message);
 }
 
-
-void ssl_handshake_decode(struct ssl_decoder_plugin_env *plugin_env, struct session *ss, uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset)
+int32_t ssl_handshake_decode(struct ssl_decoder_plugin_env *plugin_env, struct session *ss, uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset, size_t total_sz)
 {
 	if(pdata==NULL || ((*pdata_offset)+1>pdata_sz))
-	{
-		return ;
-	}
-
-	struct ssl_handshake_type *handshake_type=(struct ssl_handshake_type *)(pdata+(*pdata_offset));
-	(*pdata_offset)+=sizeof(struct ssl_handshake_type);
-
-	int32_t total_len=0;
-	int32_t ret=ssl_read_be_u24(pdata, pdata_sz, pdata_offset, (uint8_t *)&total_len);
-	if(ret==SSL_DECODER_FALSE || total_len<0 || total_len+(*pdata_offset)>pdata_sz)
-	{
-		return ;
-	}
-
-	switch(handshake_type->content_type)
-	{
-		case	SSL_HANDSHAKE_CLIENT_HELLO:
-			{
-				struct ssl_client_hello *chello=ssl_handshake_client_hello_decode(pdata, pdata_sz, pdata_offset);
-				ssl_client_hello_ja3_generate(chello);
-				ssl_message_publish(plugin_env, ss, SSL_MESSAGE_CLIENT_HELLO, (void *)chello);
-			}
-			break;
-		case	SSL_HANDSHAKE_SERVER_HELLO:
-			{
-				struct ssl_server_hello *shello=ssl_handshake_server_hello_decode(pdata, pdata_sz, pdata_offset);
-				ssl_server_hello_ja3s_generate(shello);
-				ssl_message_publish(plugin_env, ss, SSL_MESSAGE_SERVER_HELLO, (void *)shello);
-			}
-			break;
-		case	SSL_HANDSHAKE_CERTIFICATE:
-			{
-				int32_t cert_total_len=0;
-			 	ret=ssl_read_be_u24(pdata, pdata_sz, pdata_offset, (uint8_t *)&cert_total_len);
-				if(ret==SSL_DECODER_FALSE || cert_total_len<0 || cert_total_len+(*pdata_offset)>pdata_sz || (cert_total_len+3)!=total_len)
-				{
-					return ;
-				}
-
-				struct ssl_certificate_chain cert_unit[SSL_CERTIFICATE_NUM_MAX];
-				uint32_t cert_count=ssl_handshake_certificate_count_get(pdata, pdata_sz, pdata_offset, cert_unit, SSL_CERTIFICATE_NUM_MAX);
-
-				for(uint32_t i=0, cert_offset=0; i<cert_count; i++, cert_offset++)
-				{
-					struct ssl_certificate *certificate=(struct ssl_certificate *)CALLOC(struct ssl_certificate, 1);
-
-					certificate->type=ssl_handshake_certificate_type_get(cert_count, cert_offset);
-					int32_t state=ssl_x509_certificate_detail_decode(certificate, cert_unit[i].data, cert_unit[i].data_sz);
-					if(state==SSL_DECODER_FALSE)
-					{
-						FREE(certificate);
-						return ;
-					}
-
-					ssl_message_publish(plugin_env, ss, SSL_MESSAGE_CERTIFICATE, (void *)certificate);
-				}
-			}
-			break;
-		case	SSL_HANDSHAKE_SERVER_KEY_EXCHANGE:
-			// ssl_handshake_server_key_exchange_decode();
-			break;
-		default:
-			break;
-	}
-}
-
-int32_t ssl_record_header_get(struct ssl_record_header *record_hdr, uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset)
-{
-	if(pdata_sz<(*pdata_offset)+SSL_RECORD_HEADER_SZ)
 	{
 		return SSL_DECODER_FALSE;
 	}
 
-	ssl_read_u8(pdata, pdata_sz, pdata_offset, &(record_hdr->content_type));
-	ssl_read_be_u16(pdata, pdata_sz, pdata_offset, &(record_hdr->version));
-	ssl_read_be_u16(pdata, pdata_sz, pdata_offset, &(record_hdr->total_len));
+	size_t hd_offset=0;
+	while(total_sz>hd_offset && pdata_sz>(*pdata_offset))
+	{
+		struct ssl_handshake_type *handshake_type=(struct ssl_handshake_type *)(pdata+(*pdata_offset));
+		if(handshake_type->content_type==SSL_HANDSHAKE_ENCRYPTED_MESSAGE)
+		{
+			hd_offset=total_sz;
+			(*pdata_offset)+=total_sz;
+			return SSL_DECODER_TRUE;
+		}
+
+		(*pdata_offset)+=sizeof(struct ssl_handshake_type);
+
+		int32_t total_len=0;
+		int32_t ret=ssl_read_be_u24(pdata, pdata_sz, pdata_offset, (uint8_t *)&total_len);
+		if(ret==SSL_DECODER_FALSE)
+		{
+			return SSL_DECODER_CONTINUE;
+		}
+
+		if(total_len<0)
+		{
+			return SSL_DECODER_FALSE;
+		}
+
+		if(total_len+(*pdata_offset)>pdata_sz)
+		{
+			return SSL_DECODER_CONTINUE;
+		}
+
+		size_t offset=(*pdata_offset);
+		(*pdata_offset)+=total_len;
+		hd_offset+=total_len+4;
+
+		switch(handshake_type->content_type)
+		{
+			case	SSL_HANDSHAKE_CLIENT_HELLO:
+				{
+					struct ssl_client_hello *chello=ssl_handshake_client_hello_decode(pdata, pdata_sz, &offset);
+					ssl_client_hello_ja3_generate(chello);
+					ssl_message_publish(plugin_env, ss, SSL_MESSAGE_CLIENT_HELLO, (void *)chello, sizeof(struct ssl_client_hello));
+				}
+				break;
+			case	SSL_HANDSHAKE_SERVER_HELLO:
+				{
+					struct ssl_server_hello *shello=ssl_handshake_server_hello_decode(pdata, pdata_sz, &offset);
+					ssl_server_hello_ja3s_generate(shello);
+					ssl_message_publish(plugin_env, ss, SSL_MESSAGE_SERVER_HELLO, (void *)shello, sizeof(struct ssl_server_hello));
+				}
+				break;
+			case	SSL_HANDSHAKE_CERTIFICATE:
+				{
+					int32_t cert_total_len=0;
+					ret=ssl_read_be_u24(pdata, pdata_sz, &offset, (uint8_t *)&cert_total_len);
+					if(ret==SSL_DECODER_FALSE || cert_total_len<0 || cert_total_len+offset>pdata_sz || (cert_total_len+3)!=total_len)
+					{
+						break;
+					}
+
+					struct ssl_certificate_chain cert_unit[SSL_CERTIFICATE_NUM_MAX];
+					uint32_t cert_count=ssl_handshake_certificate_count_get(pdata, pdata_sz, &offset, cert_unit, SSL_CERTIFICATE_NUM_MAX);
+
+					for(uint32_t i=0, cert_offset=0; i<cert_count; i++, cert_offset++)
+					{
+						struct ssl_certificate *certificate=(struct ssl_certificate *)CALLOC(struct ssl_certificate, 1);
+
+						certificate->type=ssl_handshake_certificate_type_get(cert_count, cert_offset);
+						int32_t state=ssl_x509_certificate_detail_decode(certificate, cert_unit[i].data, cert_unit[i].data_sz);
+						if(state==SSL_DECODER_FALSE)
+						{
+							FREE(certificate);
+							break;
+						}
+
+						ssl_message_publish(plugin_env, ss, SSL_MESSAGE_CERTIFICATE, (void *)certificate, sizeof(struct ssl_certificate));
+					}
+				}
+				break;
+			case	SSL_HANDSHAKE_SERVER_KEY_EXCHANGE:
+			default:
+				break;
+		}
+	}
 
 	return SSL_DECODER_TRUE;
 }
-
 
 void ssl_tcp_stream_session_segment_data_cb(struct session *ss, int32_t topic_id, const void *msg, void *per_session_ctx, void *penv)
 {
@@ -1063,48 +1206,84 @@ void ssl_tcp_stream_session_segment_data_cb(struct session *ss, int32_t topic_id
         return ;
     }
 
-    /*
-    * fragment:
-        1: less than SSL_RECORD_HEADER_SZ
-        2: less than the length of the message
-    */
-
-    struct ssl_decoder_context *per_ss_ctx=(struct ssl_decoder_context *)(per_session_ctx);
-
+    // fragment: 1: less than SSL_RECORD_HEADER_SZ; 2: less than the length of the message; 3: multiple record messages
+	struct ssl_decoder_plugin_env *plugin_env=(struct ssl_decoder_plugin_env *)penv;
+	struct ssl_decoder_context *per_ss_ctx=(struct ssl_decoder_context *)(per_session_ctx);
     ssl_recod_buff_get0(&(per_ss_ctx->record_trunk), &pdata, &pdata_sz);
     if(pdata_sz<=SSL_RECORD_HEADER_SZ)
     {
         return ;
     }
 
-	struct ssl_record_header record_hdr={0};
-	ssl_record_header_get(&record_hdr, pdata, pdata_sz, &pdata_offset);
-	if(!is_trunk_cache(&(per_ss_ctx->record_trunk)) && pdata_sz<record_hdr.total_len)
+	while(pdata_sz>pdata_offset)
 	{
-		ssl_trunk_cache(&(per_ss_ctx->record_trunk), pdata, pdata_sz);
-		return ;
+		struct ssl_record_header record_hdr={0};
+		if(per_ss_ctx->record_trunk.is_contains_header==SSL_DECODER_TRUE)
+		{
+			ssl_record_header_get(&record_hdr, pdata, pdata_sz, &pdata_offset);
+		}
+		else
+		{
+			record_hdr=per_ss_ctx->record_trunk.record_hdr;
+			record_hdr.total_len=pdata_sz;
+		}
+
+		int32_t ret=SSL_DECODER_TRUE;
+		size_t offset=pdata_offset;
+		switch(record_hdr.content_type)
+		{
+			case	SSL_CONTENT_TYPE_HANDSHAKE:
+				if(pdata_sz-pdata_offset<record_hdr.total_len)
+				{
+					pdata_offset-=5;
+					ret=SSL_DECODER_FALSE;
+					per_ss_ctx->record_trunk.record_hdr=record_hdr;
+					per_ss_ctx->record_trunk.is_contains_header=SSL_DECODER_TRUE;
+					break;
+				}
+				else
+				{
+					ret=ssl_handshake_decode(plugin_env, ss, pdata, pdata_sz, &offset, record_hdr.total_len);
+					pdata_offset=((ret==SSL_DECODER_FALSE) ? pdata_sz : pdata_offset);
+				}
+				break;
+			case	SSL_CONTENT_TYPE_APPLICATION_DATA:
+				ssl_message_publish(plugin_env, ss, SSL_MESSAGE_ENCRYPTED_APPLICATION, (void *)(pdata+offset), record_hdr.total_len);
+				offset+=record_hdr.total_len;
+				break;
+			case	SSL_CONTENT_TYPE_ALERT:
+			case	SSL_CONTENT_TYPE_CHANGE_CIPHER_SPEC:
+				offset+=record_hdr.total_len;
+				break;
+			default:
+				offset+=record_hdr.total_len;
+				if(per_ss_ctx->identify_pkt_count++>=plugin_env->max_identify_pkt)
+				{
+					stellar_session_plugin_dettach_current_session(ss);
+					return ;
+				}
+				break;
+		}
+
+		if(ret==SSL_DECODER_FALSE)
+		{
+			break;
+		}
+
+		if(ret==SSL_DECODER_CONTINUE)
+		{
+			//pdata_offset-=5;
+			per_ss_ctx->record_trunk.record_hdr=record_hdr;
+			per_ss_ctx->record_trunk.is_contains_header=SSL_DECODER_FALSE;
+			break;
+		}
+
+		pdata_offset+=record_hdr.total_len;
 	}
 
-	struct ssl_decoder_plugin_env *plugin_env=(struct ssl_decoder_plugin_env *)penv;
-
-	switch(record_hdr.content_type)
+	if(is_trunk_cache(&(per_ss_ctx->record_trunk)) || pdata_sz>pdata_offset)
 	{
-		case	SSL_CONTENT_TYPE_HANDSHAKE:
-			ssl_handshake_decode(plugin_env, ss, pdata, pdata_sz, &pdata_offset);
-			break;
-		case	SSL_CONTENT_TYPE_ALERT:
-			break;
-		case	SSL_CONTENT_TYPE_APPLICATION_DATA:
-			break;
-		case	SSL_CONTENT_TYPE_CHANGE_CIPHER_SPEC:
-			break;
-		default:
-			if(per_ss_ctx->identify_pkt_count++>=plugin_env->max_identify_pkt)
-			{
-				stellar_session_plugin_dettach_current_session(ss);
-				return ;
-			}
-			break;
+		ssl_trunk_message_publish(plugin_env, ss, &(per_ss_ctx->record_trunk), pdata+pdata_offset, pdata_sz-pdata_offset);
 	}
 }
 
@@ -1118,7 +1297,9 @@ void *ssl_decoder_per_session_context_new(struct session *ss, void *penv)
         return NULL;
     }
 
-	return CALLOC(struct ssl_decoder_context, 1);
+	struct ssl_decoder_context *per_ss_ctx=(struct ssl_decoder_context *)CALLOC(struct ssl_decoder_context, 1);
+	per_ss_ctx->record_trunk.is_contains_header=SSL_DECODER_TRUE;
+	return (void *)per_ss_ctx;
 }
 
 void ssl_decoder_per_session_context_free(struct session *ss, void *per_session_ctx, void *penv)
@@ -1193,37 +1374,6 @@ int32_t ssl_decoder_config_load(const char *cfg_path, struct ssl_decoder_plugin_
 
 		plugin_env->net_port[i]=ntohs(int_val.u.i);
 	}
-
-    // toml_table_t *limited_tbl=toml_table_in(ssl_tbl, "limited");
-    // if(NULL==limited_tbl)
-    // {
-    //     fprintf(stderr, "[%s:%d] config file: %s has no key: [decoder.ssl.limited]", __FUNCTION__, __LINE__, cfg_path);
-    //     toml_free(root);
-    //     return -1;
-    // }
-
-	// toml_datum_t max_rr_num_val=toml_int_in(limited_tbl, "max_rr_num");
-	// if(max_rr_num_val.ok==0)
-	// {
-	// 	fprintf(stderr, "[%s:%d] config file: %s has no key: [decoder.ssl.limited.max_rr_num]", __FUNCTION__, __LINE__, cfg_path);
-	// 	ret=-1;
-	// }
-	// else
-	// {
-	// 	plugin_env->max_rr_num=max_rr_num_val.u.i;
-	// }
-
-	// // max_cache_trans_num
-	// toml_datum_t max_cache_trans_num_val=toml_int_in(limited_tbl, "max_cache_trans_num");
-	// if(max_cache_trans_num_val.ok==0)
-	// {
-	// 	fprintf(stderr, "[%s:%d] config file: %s has no key: [decoder.ssl.limited.max_cache_trans_num]", __FUNCTION__, __LINE__, cfg_path);
-	// 	ret=-1;
-	// }
-	// else
-	// {
-	// 	plugin_env->max_cache_trans_num=max_cache_trans_num_val.u.i;
-	// }
 
     toml_table_t *local_stat_tbl=toml_table_in(ssl_tbl, "local_stat");
     if(NULL==local_stat_tbl)
@@ -1354,11 +1504,26 @@ extern "C" void *ssl_decoder_init(struct stellar *st)
 	plugin_env->ssl.free_cb=ssl_message_free;
 	plugin_env->ssl.on_cb=NULL;
 	plugin_env->ssl.topic_name=SSL_DECODER_MESSAGE_TOPIC;
-    plugin_env->ssl.topic_id=stellar_session_mq_get_topic_id(st, plugin_env->ssl.topic_name);
+    plugin_env->ssl.topic_id=stellar_session_mq_get_topic_id(plugin_env->st, plugin_env->ssl.topic_name);
     if(plugin_env->ssl.topic_id<0)
 	{
-        plugin_env->ssl.topic_id=stellar_session_mq_create_topic(st, plugin_env->ssl.topic_name, ssl_message_free, NULL);
+        plugin_env->ssl.topic_id=stellar_session_mq_create_topic(plugin_env->st, plugin_env->ssl.topic_name, ssl_message_free, NULL);
     }
+
+	plugin_env->ptrunk.free_cb=ssl_trunk_message_free;
+	plugin_env->ptrunk.on_cb=NULL;
+	plugin_env->ptrunk.topic_name=SSL_TRUNK_MESSAGE_TOPIC;
+	plugin_env->ptrunk.topic_id=stellar_session_mq_get_topic_id(plugin_env->st, plugin_env->ptrunk.topic_name);
+	if(plugin_env->ptrunk.topic_id<0)
+	{
+		plugin_env->ptrunk.topic_id=stellar_session_mq_create_topic(plugin_env->st, plugin_env->ptrunk.topic_name, ssl_trunk_message_free, NULL);
+	}
+
+	plugin_env->strunk.free_cb=NULL;
+	plugin_env->strunk.on_cb=ssl_trunk_message_segment_data_cb;
+	plugin_env->strunk.topic_name=SSL_TRUNK_MESSAGE_TOPIC;
+	plugin_env->strunk.topic_id=stellar_session_mq_get_topic_id(plugin_env->st, plugin_env->strunk.topic_name);
+	plugin_env->strunk.sub_id=stellar_session_mq_subscribe(plugin_env->st, plugin_env->strunk.topic_id, plugin_env->strunk.on_cb, plugin_env->plugin_id);
 
 	plugin_env->tcp_stream.free_cb=NULL;
 	plugin_env->tcp_stream.on_cb=ssl_tcp_stream_session_segment_data_cb;
@@ -1366,9 +1531,11 @@ extern "C" void *ssl_decoder_init(struct stellar *st)
 	plugin_env->tcp_stream.topic_id=stellar_session_mq_get_topic_id(plugin_env->st, plugin_env->tcp_stream.topic_name);
 	plugin_env->tcp_stream.sub_id=stellar_session_mq_subscribe(plugin_env->st, plugin_env->tcp_stream.topic_id, plugin_env->tcp_stream.on_cb, plugin_env->plugin_id);
 
-    printf("ssl_decoder_init: plugin_id: %d, topic: [{name: %s -> id: %d}, {name: %s -> id: %d}] \n",
+    printf("ssl_decoder_init: plugin_id: %d, topic: [{name: %s -> id: %d}, {name: %s -> id: %d}, {name: %s -> id: %d}, {name: %s -> id: %d}] \n",
 			plugin_env->plugin_id, 
 			plugin_env->ssl.topic_name, plugin_env->ssl.topic_id,
+			plugin_env->ptrunk.topic_name, plugin_env->ptrunk.topic_id,
+			plugin_env->strunk.topic_name, plugin_env->strunk.topic_id,
 			plugin_env->tcp_stream.topic_name, plugin_env->tcp_stream.topic_id
 		);
 

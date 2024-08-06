@@ -1,0 +1,11 @@
+[
+    {
+        "Tuple4": "36.251.161.167.39777>143.92.57.79.443",
+        "ssl_client_version": "TLS1.2",
+        "ssl_sni": "a.ywgyuv.cn",
+        "ssl_ja3_hash": "c3db97da3b30171e5cf9de314584b555",
+        "ssl_esni": 0,
+        "ssl_ech": 1,
+        "name": "SSL_RESULT_1"
+    }
+]

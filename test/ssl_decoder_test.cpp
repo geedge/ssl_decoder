@@ -42,6 +42,11 @@ struct ssl_decoder_test_plugin_env
 
 extern "C" int commit_test_result_json(cJSON *node, const char *name);
 
+int get_current_worker_thread_id()
+{
+	return 0;
+}
+
 void ssl_real_result_write_file(char *result_str)
 {
 	FILE *fp=fopen("ssl_real_result.json", "a+");
@@ -67,17 +72,17 @@ void ssl_decoder_test_message_cb(struct session *ss, int topic_id, const void *m
 	{
 		case	SSL_MESSAGE_CLIENT_HELLO:
 			{
-				yyjson_mut_obj_add_str(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_client_version", ssl_message_readable_version_get0(ssl_msg));
+				yyjson_mut_obj_add_strcpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_client_version", ssl_message_readable_version_get0(ssl_msg));
 
 				char *sni=NULL;
 				size_t sni_sz=0;
 				ssl_message_sni_get0(ssl_msg, &sni, &sni_sz);
-				yyjson_mut_obj_add_strn(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_sni", sni, sni_sz);
+				yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_sni", sni, sni_sz);
 
 				char *ja3=NULL;
 				size_t ja3_sz=0;
 				ssl_message_ja3hash_get0(ssl_msg, &ja3, &ja3_sz);
-				yyjson_mut_obj_add_strn(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_ja3_hash", ja3, ja3_sz);
+				yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_ja3_hash", ja3, ja3_sz);
 
 				int32_t esni_flag=ssl_message_esni_is_true(ssl_msg);
 				yyjson_mut_obj_add_int(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_esni", esni_flag);
@@ -88,17 +93,172 @@ void ssl_decoder_test_message_cb(struct session *ss, int topic_id, const void *m
 			break;
 		case	SSL_MESSAGE_SERVER_HELLO:
 			{
-				yyjson_mut_obj_add_str(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_server_version", ssl_message_readable_version_get0(ssl_msg));
+				yyjson_mut_obj_add_strcpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_server_version", ssl_message_readable_version_get0(ssl_msg));
 
 				char *ja3s=NULL;
 				size_t ja3s_sz=0;
 				ssl_message_ja3shash_get0(ssl_msg, &ja3s, &ja3s_sz);
-				yyjson_mut_obj_add_strn(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_ja3s_hash", ja3s, ja3s_sz);
+				yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_ja3s_hash", ja3s, ja3s_sz);
 			}
 			break;
 		case	SSL_MESSAGE_CERTIFICATE:
+			{
+				enum ssl_certificate_type type=ssl_certificate_type_get(ssl_msg);
+				if(type!=SSL_CERTIFICATE_TYPE_INDIVIDUAL)
+				{
+					break;
+				}
+				
+				yyjson_mut_obj_add_strcpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_version", ssl_message_readable_version_get0(ssl_msg));
+
+				struct ssl_rdn_sequence *issuer=ssl_message_issuer_rdn_sequence_get0(ssl_msg);
+				if(issuer!=NULL)
+				{
+					size_t rdn_sequence_list_sz=0;
+					char *rdn_sequence_list=NULL;
+					ssl_rdn_sequence_list_get0(issuer, &rdn_sequence_list, &rdn_sequence_list_sz);
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_issuer", rdn_sequence_list, rdn_sequence_list_sz);
+
+					size_t common_sz=0;
+					char *common=NULL;
+					ssl_rdn_sequence_common_get0(issuer, &common, &common_sz);
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_issuer_common", common, common_sz);
+
+					size_t organization_sz=0;
+					char *organization=NULL;
+					ssl_rdn_sequence_organization_get0(issuer, &organization, &organization_sz);
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_issuer_organization", organization, organization_sz);
+
+					size_t country_sz=0;
+					char *country=NULL;
+					ssl_rdn_sequence_country_get0(issuer, &country, &country_sz);
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_issuer_country", country, country_sz);
+
+					size_t state_or_Province_sz=0;
+					char *state_or_Province=NULL;
+					ssl_rdn_sequence_state_or_province_get0(issuer, &state_or_Province, &state_or_Province_sz);
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_issuer_state_or_Province", state_or_Province, state_or_Province_sz);
+
+					size_t locality_sz=0;
+					char *locality=NULL;
+					ssl_rdn_sequence_locality_get0(issuer, &locality, &locality_sz);
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_issuer_locality", locality, locality_sz);
+
+					size_t street_address_sz=0;
+					char *street_address=NULL;
+					ssl_rdn_sequence_street_address_get0(issuer, &street_address, &street_address_sz);
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_issuer_street_address", street_address, street_address_sz);
+
+					size_t organizational_unit_sz=0;
+					char *organizational_unit=NULL;
+					ssl_rdn_sequence_organizational_unit_get0(issuer, &organizational_unit, &organizational_unit_sz);
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_issuer_organizational_unit", organizational_unit, organizational_unit_sz);
+				}
+
+				struct ssl_rdn_sequence *subject=ssl_message_subject_rdn_sequence_get0(ssl_msg);
+				if(subject!=NULL)
+				{
+					size_t rdn_sequence_list_sz=0;
+					char *rdn_sequence_list=NULL;
+					ssl_rdn_sequence_list_get0(subject, &rdn_sequence_list, &rdn_sequence_list_sz);
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_subject", rdn_sequence_list, rdn_sequence_list_sz);
+
+					size_t common_sz=0;
+					char *common=NULL;
+					ssl_rdn_sequence_common_get0(subject, &common, &common_sz);
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_subject_common", common, common_sz);
+
+					size_t organization_sz=0;
+					char *organization=NULL;
+					ssl_rdn_sequence_organization_get0(subject, &organization, &organization_sz);
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_subject_organization", organization, organization_sz);
+
+					size_t country_sz=0;
+					char *country=NULL;
+					ssl_rdn_sequence_country_get0(subject, &country, &country_sz);
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_subject_country", country, country_sz);
+
+					size_t state_or_Province_sz=0;
+					char *state_or_Province=NULL;
+					ssl_rdn_sequence_state_or_province_get0(subject, &state_or_Province, &state_or_Province_sz);
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_subject_state_or_Province", state_or_Province, state_or_Province_sz);
+
+					size_t locality_sz=0;
+					char *locality=NULL;
+					ssl_rdn_sequence_locality_get0(subject, &locality, &locality_sz);
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_subject_locality", locality, locality_sz);
+
+					size_t street_address_sz=0;
+					char *street_address=NULL;
+					ssl_rdn_sequence_street_address_get0(subject, &street_address, &street_address_sz);
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_subject_street_address", street_address, street_address_sz);
+
+					size_t organizational_unit_sz=0;
+					char *organizational_unit=NULL;
+					ssl_rdn_sequence_organizational_unit_get0(subject, &organizational_unit, &organizational_unit_sz);
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_subject_organizational_unit", organizational_unit, organizational_unit_sz);
+				}
+				
+				size_t subject_alt_name_sz=0;
+				char *subject_alt_name=NULL;
+				while(1)
+				{
+					size_t name_sz=0;
+					char *name=NULL;
+					ssl_message_subject_alter_next(ssl_msg, &name, &name_sz);
+					if(name_sz==0)
+					{
+						break;
+					}
+
+					subject_alt_name=((subject_alt_name==NULL)) ? (char *)calloc(1, name_sz+1) : (char *)realloc(subject_alt_name, subject_alt_name_sz+name_sz+1);
+					memcpy(subject_alt_name+subject_alt_name_sz, name, name_sz);
+					subject_alt_name[subject_alt_name_sz+name_sz]=';';
+					subject_alt_name_sz+=name_sz+1;
+				}
+				
+				ssl_message_reset_subject_alter_iter(ssl_msg);
+				yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_subject_alt_name", subject_alt_name, subject_alt_name_sz);
+
+				size_t serial_number_sz=0;
+				char *serial_number=NULL;
+				ssl_message_issuer_serial_number_get0(ssl_msg, &serial_number, &serial_number_sz);
+				if(serial_number_sz>0)
+				{
+					char *serialBuf=(char *)calloc(1, serial_number_sz*2+1+2);
+					size_t offset=snprintf(serialBuf, 3, "0x");
+					for(size_t i=0; i<serial_number_sz; i++)
+					{
+						offset+=snprintf(serialBuf+offset, serial_number_sz*2+1+2-offset, "%02hhx", (unsigned char )(serial_number[i]));
+					}
+					
+					yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_serial_number", serialBuf, offset);
+					free(serialBuf);
+					serialBuf=NULL;
+				}
+
+				size_t signature_algorithm_sz=0;
+				char *signature_algorithm=NULL;
+				ssl_message_signature_algorithm_id_get0(ssl_msg, &signature_algorithm, &signature_algorithm_sz);
+				yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_signature_algorithm", signature_algorithm, signature_algorithm_sz);
+
+				size_t validity_before_sz=0;
+				char *validity_before=NULL;
+				ssl_message_validity_before_get0(ssl_msg, &validity_before, &validity_before_sz);
+				yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_validity_before", validity_before, validity_before_sz);
+
+				size_t validity_after_sz=0;
+				char *validity_after=NULL;
+				ssl_message_validity_after_get0(ssl_msg, &validity_after, &validity_after_sz);
+				yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_validity_after", validity_after, validity_after_sz);
+
+				size_t algorithm_identifier_sz=0;
+				char *algorithm_identifier=NULL;
+				ssl_message_algorithm_identifier_get0(ssl_msg, &algorithm_identifier, &algorithm_identifier_sz);
+				yyjson_mut_obj_add_strncpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_cert_algorithm_identifier", algorithm_identifier, algorithm_identifier_sz);
+			}
 			break;
-		case	SSL_PROTECTED_PAYLOAD:
+		case	SSL_MESSAGE_ENCRYPTED_APPLICATION:
 			break;
 		default:
 			break;
@@ -110,6 +270,9 @@ void *ssl_decoder_test_per_session_context_new(struct session *ss, void *plugin_
 	struct ssl_decoder_test_context *per_ss_ctx=(struct ssl_decoder_test_context *)calloc(1, sizeof(struct ssl_decoder_test_context));
 	per_ss_ctx->doc=yyjson_mut_doc_new(0);
 	per_ss_ctx->ssl_object=yyjson_mut_obj(per_ss_ctx->doc);
+
+	// add Tuple
+	yyjson_mut_obj_add_strcpy(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "Tuple4", session_get0_readable_addr(ss));
 
     return (void *)per_ss_ctx;
 }
@@ -127,10 +290,18 @@ void ssl_decoder_test_per_session_context_free(struct session *ss, void *per_ses
 	char *json_str=yyjson_mut_write(per_ss_ctx->doc, 0, 0);
 	yyjson_mut_doc_free(per_ss_ctx->doc);
 
-	char result_name[16]="";
-	sprintf(result_name, "SSL_RESULT_%d", plugin_env->result_index++);
-	cJSON *real_result=cJSON_Parse(json_str);
-	commit_test_result_json(real_result, result_name);
+	if(plugin_env->commit_result_enable==1)
+	{
+		char result_name[16]="";
+		sprintf(result_name, "SSL_RESULT_%d", plugin_env->result_index++);
+		cJSON *real_result=cJSON_Parse(json_str);
+
+		commit_test_result_json(real_result, result_name);
+	}
+	else
+	{
+		printf("%s\n", json_str);
+	}
 
 	free(json_str);
 	free(per_ss_ctx);

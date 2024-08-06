@@ -58,7 +58,9 @@ add_test(NAME RUN_BUG_TEST COMMAND ${TEST_MAIN} ${CMAKE_CURRENT_SOURCE_DIR}/case
 add_test(NAME RUN_MULTIPLE_HANDSHAKE_TEST COMMAND ${TEST_MAIN} ${CMAKE_CURRENT_SOURCE_DIR}/case/multiple_handshake/ssl_multiple_handshake_result.json -f "find ${CMAKE_CURRENT_SOURCE_DIR}/case/multiple_handshake/ -name '*.pcap' | sort -V" WORKING_DIRECTORY ${TEST_RUN_DIR})
 add_test(NAME RUN_CLOSE_CONTAINS_PAYLOAD_TEST COMMAND ${TEST_MAIN} ${CMAKE_CURRENT_SOURCE_DIR}/case/close_contains_payload/ssl_close_contains_payload_result.json -f "find ${CMAKE_CURRENT_SOURCE_DIR}/case/close_contains_payload/ -name '*.pcap' | sort -V" WORKING_DIRECTORY ${TEST_RUN_DIR})
 add_test(NAME RUN_EXTENSION_EXCEED_16 COMMAND ${TEST_MAIN} ${CMAKE_CURRENT_SOURCE_DIR}/case/extensions_exceed_16/extensions_exceed_16_result.json -f "find ${CMAKE_CURRENT_SOURCE_DIR}/case/extensions_exceed_16/ -name '*.pcap' | sort -V" WORKING_DIRECTORY ${TEST_RUN_DIR})
-add_test(NAME RUN_CLIENT_HELLO_FRAGMENT COMMAND ${TEST_MAIN} ${CMAKE_CURRENT_SOURCE_DIR}/case/client_hello_fragment/ssl_client_hello_fragment_result.json -f "find ${CMAKE_CURRENT_SOURCE_DIR}/case/client_hello_fragment/ -name '*.pcap' | sort -V" WORKING_DIRECTORY ${TEST_RUN_DIR})
+add_test(NAME RUN_CLIENT_HELLO_FRAGMENT1 COMMAND ${TEST_MAIN} ${CMAKE_CURRENT_SOURCE_DIR}/case/client_hello_fragment1/ssl_client_hello_fragment_result.json -f "find ${CMAKE_CURRENT_SOURCE_DIR}/case/client_hello_fragment1/ -name '*.pcap' | sort -V" WORKING_DIRECTORY ${TEST_RUN_DIR})
+add_test(NAME RUN_CLIENT_HELLO_FRAGMENT2 COMMAND ${TEST_MAIN} ${CMAKE_CURRENT_SOURCE_DIR}/case/client_hello_fragment2/ssl_client_hello_fragment_result.json -f "find ${CMAKE_CURRENT_SOURCE_DIR}/case/client_hello_fragment2/ -name '*.pcap' | sort -V" WORKING_DIRECTORY ${TEST_RUN_DIR})
+add_test(NAME RUN_CLIENT_HELLO_FRAGMENT3 COMMAND ${TEST_MAIN} ${CMAKE_CURRENT_SOURCE_DIR}/case/client_hello_fragment3/ssl_client_hello_fragment_result.json -f "find ${CMAKE_CURRENT_SOURCE_DIR}/case/client_hello_fragment3/ -name '*.pcap' | sort -V" WORKING_DIRECTORY ${TEST_RUN_DIR})
 add_test(NAME RUN_ACK_CONTAINS_PAYLOAD COMMAND ${TEST_MAIN} ${CMAKE_CURRENT_SOURCE_DIR}/case/tcp_ack_contians_payload/ssl_tcp_ack_contians_payload_result.json -f "find ${CMAKE_CURRENT_SOURCE_DIR}/case/tcp_ack_contians_payload/ -name '*.pcap' | sort -V" WORKING_DIRECTORY ${TEST_RUN_DIR})
 
 set_tests_properties(RUN_SSL_TEST 
@@ -68,7 +70,9 @@ set_tests_properties(RUN_SSL_TEST
                         RUN_MULTIPLE_HANDSHAKE_TEST 
                         RUN_CLOSE_CONTAINS_PAYLOAD_TEST 
                         RUN_EXTENSION_EXCEED_16
-                        RUN_CLIENT_HELLO_FRAGMENT
+                        RUN_CLIENT_HELLO_FRAGMENT1
+                        RUN_CLIENT_HELLO_FRAGMENT2
+                        RUN_CLIENT_HELLO_FRAGMENT3
                         RUN_ACK_CONTAINS_PAYLOAD
                         PROPERTIES FIXTURES_REQUIRED TestFixture
                     )

@@ -6,19 +6,21 @@
 #include <uthash/utarray.h>
 #include "ssl_decoder.h"
 
-#define	SSL_DECODER_TOML_PATH	"conf/ssl/ssl_decoder.toml"
+#define	SSL_DECODER_TOML_PATH	"etc/ssl/ssl_decoder.toml"
 
 #define SSL_DECODER_FALSE 0
 #define SSL_DECODER_TRUE 1
+#define SSL_DECODER_CONTINUE 2
 
 #define SSL_UUID_BYTES_SZ   16
 
 #define SSL_RANDOM_TIME_LEN 4
 #define SSL_RANDOM_SIZE		28
 
-#define SSL_HANDSHAKE_CLIENT_HELLO	1
-#define SSL_HANDSHAKE_SERVER_HELLO	2
-#define SSL_HANDSHAKE_CERTIFICATE	11
+#define SSL_HANDSHAKE_ENCRYPTED_MESSAGE		0
+#define SSL_HANDSHAKE_CLIENT_HELLO			1
+#define SSL_HANDSHAKE_SERVER_HELLO			2
+#define SSL_HANDSHAKE_CERTIFICATE			11
 #define SSL_HANDSHAKE_SERVER_KEY_EXCHANGE	12
 
 #define	SSL_CONTENT_TYPE_HANDSHAKE	0x16
@@ -116,6 +118,7 @@ struct ssl_new_session_ticket
 struct ssl_subject_alter_name
 {
 	int num;
+	int offset;
 	char (*name)[MAX_ALTER_NAME_LEN];
 };
 
@@ -193,6 +196,7 @@ struct ssl_message
 	char uuid_bytes[SSL_UUID_BYTES_SZ];
 	struct session *ss;
 	struct ssl_decoder_plugin_env *plugin_env;
+	size_t data_sz;
 	union
 	{
 		struct ssl_client_hello *chello;
@@ -200,5 +204,4 @@ struct ssl_message
 		struct ssl_certificate *certificate;
 		void *data;
 	};
-	
 };

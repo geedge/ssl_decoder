@@ -1,0 +1,28 @@
+[
+    {
+        "Tuple4": "192.168.56.31.53868>74.118.186.107.443",
+        "ssl_client_version": "TLS1.2",
+        "ssl_sni": "sync.targeting.unrulymedia.com",
+        "ssl_ja3_hash": "bc93a67ef4492974195865dc0262e65e",
+        "ssl_esni": 0,
+        "ssl_ech": 0,
+        "ssl_server_version": "TLS1.2",
+        "ssl_ja3s_hash": "b898351eb5e266aefd3723d466935494",
+        "ssl_cert_version":     "v3",
+        "ssl_cert_issuer": "Sectigo RSA Domain Validation Secure Server CA;Sectigo Limited;;Salford;;Greater Manchester;GB",
+        "ssl_cert_issuer_common": "Sectigo RSA Domain Validation Secure Server CA",
+        "ssl_cert_issuer_organization": "Sectigo Limited",
+        "ssl_cert_issuer_country": "GB",
+        "ssl_cert_issuer_state_or_Province": "Greater Manchester",
+        "ssl_cert_issuer_locality": "Salford",
+        "ssl_cert_subject": "*.targeting.unrulymedia.com;;;;;;",
+        "ssl_cert_subject_common": "*.targeting.unrulymedia.com",
+        "ssl_cert_subject_alt_name": "*.targeting.unrulymedia.com;targeting.unrulymedia.com;",
+        "ssl_cert_serial_number": "0x888d5e51787e0f1f485dc542465d2034",
+        "ssl_cert_signature_algorithm": "1.2.840.113549.1.1.11",
+        "ssl_cert_validity_before": "230510000000Z",
+        "ssl_cert_validity_after": "240510235959Z",
+        "ssl_cert_algorithm_identifier": "1.2.840.113549.1.1.11",
+        "name": "SSL_RESULT_1"
+    }
+]

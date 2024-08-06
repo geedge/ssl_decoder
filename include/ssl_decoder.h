@@ -12,10 +12,10 @@ extern "C"
 
 enum ssl_message_type
 {
-    SSL_MESSAGE_CLIENT_HELLO,
+    SSL_MESSAGE_CLIENT_HELLO=0x1,
     SSL_MESSAGE_SERVER_HELLO,
     SSL_MESSAGE_CERTIFICATE,
-    SSL_PROTECTED_PAYLOAD,
+    SSL_MESSAGE_ENCRYPTED_APPLICATION,
     SSL_MSG_MAX,
 };
 
@@ -23,6 +23,7 @@ struct ssl_message;
 enum ssl_message_type ssl_message_type_get(const struct ssl_message *msg);
 
 // SSL_MESSAGE_CLIENT_HELLO
+int32_t ssl_message_is_fragment(const struct ssl_message *msg);
 int32_t ssl_message_esni_is_true(const struct ssl_message *msg);
 int32_t ssl_message_ech_is_true(const struct ssl_message *msg);
 
@@ -53,8 +54,8 @@ void ssl_message_validity_before_get0(const struct ssl_message *msg, char **valu
 void ssl_message_validity_after_get0(const struct ssl_message *msg, char **value, size_t *value_sz);
 void ssl_message_issuer_serial_number_get0(const struct ssl_message *msg, char **value, size_t *value_sz);
 void ssl_message_subject_public_key_algorithm_get0(const struct ssl_message *msg, char **value, size_t *value_sz);
-void ssl_message_ssl_algorithm_identifier_get0(const struct ssl_message *msg, char **value, size_t *value_sz);
-void ssl_message_ssl_signature_algorithm_id_get0(const struct ssl_message *msg, char **value, size_t *value_sz);
+void ssl_message_algorithm_identifier_get0(const struct ssl_message *msg, char **value, size_t *value_sz);
+void ssl_message_signature_algorithm_id_get0(const struct ssl_message *msg, char **value, size_t *value_sz);
 
 /**
  * @brief loop reading all domain of subject_alter.
@@ -81,7 +82,7 @@ void ssl_rdn_sequence_state_or_province_get0(struct ssl_rdn_sequence *rdn, char 
 void ssl_rdn_sequence_organizational_unit_get0(struct ssl_rdn_sequence *rdn, char **value, size_t *value_sz);
 void ssl_rdn_sequence_list_get0(struct ssl_rdn_sequence *rdn, char **value, size_t *value_sz);
 
-// SSL_PROTECTED_PAYLOAD
+// SSL_MESSAGE_ENCRYPTED_APPLICATION
 void ssl_message_protected_payload_get0(const struct ssl_message *msg, char **value, size_t *value_sz);
 
 #ifdef __cplusplus

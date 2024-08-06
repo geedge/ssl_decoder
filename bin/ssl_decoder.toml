@@ -10,3 +10,6 @@ stat_per_thread_enable="no"
 stat_name="SSL_DECODER"
 stat_interval_time_s=5
 stat_output="metrics/ssl_decoder_local_stat.json"
+
+[decoder.ssl.test]
+commit_result_enable="yes"
