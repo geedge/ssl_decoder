@@ -1,0 +1,502 @@
+[
+	{
+		"Tuple4": "10.10.10.162.55173>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_1"
+	},
+	{
+		"Tuple4": "10.10.10.162.55174>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_2"
+	},
+	{
+		"Tuple4": "10.10.10.162.55176>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_3"
+	},
+	{
+		"Tuple4": "10.10.10.162.55177>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_4"
+	},
+	{
+		"Tuple4": "10.10.10.162.55178>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_5"
+	},
+	{
+		"Tuple4": "10.10.10.162.55179>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_6"
+	},
+	{
+		"Tuple4": "10.10.10.162.55180>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_7"
+	},
+	{
+		"Tuple4": "10.10.10.162.55181>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_8"
+	},
+	{
+		"Tuple4": "10.10.10.162.55182>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_9"
+	},
+	{
+		"Tuple4": "10.10.10.162.55184>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_10"
+	},
+	{
+		"Tuple4": "10.10.10.162.55214>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_11"
+	},
+	{
+		"Tuple4": "10.10.10.162.55215>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_12"
+	},
+	{
+		"Tuple4": "10.10.10.162.55183>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"ssl_ja3s_hash": "16c0b3e6a7b8173c16d944cfeaeee9cf",
+		"ssl_cert_version": "v3",
+		"ssl_cert_Issuer": "GlobalSign Atlas R3 OV TLS CA H2 2021;GlobalSign nv-sa;;;;;BE",
+		"ssl_cert_IssuerCN": "GlobalSign Atlas R3 OV TLS CA H2 2021",
+		"ssl_cert_IssuerO": "GlobalSign nv-sa",
+		"ssl_cert_IssuerC": "BE",
+		"ssl_cert_Sub": "sites.target.com;Target Corporation;;Minneapolis;;Minnesota;US",
+		"ssl_cert_SubCN": "sites.target.com",
+		"ssl_cert_SubO": "Target Corporation",
+		"ssl_cert_SubC": "US",
+		"ssl_cert_SubP": "Minnesota",
+		"ssl_cert_SubL": "Minneapolis",
+		"ssl_cert_SubCN": "sites.target.com",
+		"ssl_cert_SubAltName": "sites.target.com;affiliate.target.com;android.studioconnect.live;api.studioconnect.live;apollo-metrics.target.com;assethub.partnersonline.com;assethub.target.com;awesomeshop.target.com;bex.partnersonline.com;bex.target.com;cartster.target.com;cartwheel.target.com;cartwheelws-secure.target.com;circle.target.com;connect.roundel.com;connectedcommerce.target.com;corporate.target.com;developer.target.com;dojo.target.com;doppler.partnersonline.com;elevate.target.com;extgargantua.partnersonline.com;factorial.partnersonline.com;finds.target.com;gql.studioconnect.live;greenfield.partnersonline.com;greenfield.target.com;hrocdocrequest.target.com;iccon.target.com;incubator.target.com;india.target.com;ios.studioconnect.live;jira.target.com;launchpad.partnersonline.com;launchpad.target.com;leads.studioconnect.live;m.target.com;marketinghub.target.com;mercury.partnersonline.com;mickra.target.com;mickradashboard.target.com;mvs.partnersonline.com;mytime.target.com;nic.target;openhouse.target.com;opensource.target.com;osmosis.partnersonline.com;partnersonline.com;pcn.partnersonline.com;peg.partnersonline.com;photosubmission.target.com;pid.partnersonline.com;plus.target.com;pmworkorderadmin.partnersonline.com;poladmin.partnersonline.com;pop.partnersonline.com;qmp.partnersonline.com;qr.target.com;r2d2.target.com;rdmplus.target.com;recognize.target.com;redcard.target.com;redirect.studioconnect.live;rik.roundel.com;roundel.com;rubix.partnersonline.com;rubix.target.com;security.target.com;servicetech.target.com;sm.partnersonline.com;spark.partnersonline.com;spark.target.com;studioconnect.live;stylehub.target.com;synergy.partnersonline.com;target.com;targetmedianetwork.target.com;targetopenhouse.com;tepagent.target.com;tgt-files.target.com;tgtdriver.partnersonline.com;ti-event-prod.target.com;tiam.target.com;tiiam.target.com;tvi.partnersonline.com;viewpoint.target.com;weeklyad.target.com;www.partnersonline.com;www.roundel.com;www.target.com;www.targetopenhouse.com",
+		"ssl_cert_SerialNum": "0x012ede33fc9283773396e9b1ff995262",
+		"ssl_cert_AgID": "1.2.840.113549.1.1.11",
+		"ssl_cert_From": "210928164609Z",
+		"ssl_cert_To": "221030164608Z",
+		"ssl_cert_SSLFPAg": "1.2.840.113549.1.1.11",
+		"name": "SSL_RESULT_13"
+	},
+	{
+		"Tuple4": "10.10.10.162.55242>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"ssl_ja3s_hash": "16c0b3e6a7b8173c16d944cfeaeee9cf",
+		"ssl_cert_version": "v3",
+		"ssl_cert_Issuer": "GlobalSign Atlas R3 OV TLS CA H2 2021;GlobalSign nv-sa;;;;;BE",
+		"ssl_cert_IssuerCN": "GlobalSign Atlas R3 OV TLS CA H2 2021",
+		"ssl_cert_IssuerO": "GlobalSign nv-sa",
+		"ssl_cert_IssuerC": "BE",
+		"ssl_cert_Sub": "sites.target.com;Target Corporation;;Minneapolis;;Minnesota;US",
+		"ssl_cert_SubCN": "sites.target.com",
+		"ssl_cert_SubO": "Target Corporation",
+		"ssl_cert_SubC": "US",
+		"ssl_cert_SubP": "Minnesota",
+		"ssl_cert_SubL": "Minneapolis",
+		"ssl_cert_SubCN": "sites.target.com",
+		"ssl_cert_SubAltName": "sites.target.com;affiliate.target.com;android.studioconnect.live;api.studioconnect.live;apollo-metrics.target.com;assethub.partnersonline.com;assethub.target.com;awesomeshop.target.com;bex.partnersonline.com;bex.target.com;cartster.target.com;cartwheel.target.com;cartwheelws-secure.target.com;circle.target.com;connect.roundel.com;connectedcommerce.target.com;corporate.target.com;developer.target.com;dojo.target.com;doppler.partnersonline.com;elevate.target.com;extgargantua.partnersonline.com;factorial.partnersonline.com;finds.target.com;gql.studioconnect.live;greenfield.partnersonline.com;greenfield.target.com;hrocdocrequest.target.com;iccon.target.com;incubator.target.com;india.target.com;ios.studioconnect.live;jira.target.com;launchpad.partnersonline.com;launchpad.target.com;leads.studioconnect.live;m.target.com;marketinghub.target.com;mercury.partnersonline.com;mickra.target.com;mickradashboard.target.com;mvs.partnersonline.com;mytime.target.com;nic.target;openhouse.target.com;opensource.target.com;osmosis.partnersonline.com;partnersonline.com;pcn.partnersonline.com;peg.partnersonline.com;photosubmission.target.com;pid.partnersonline.com;plus.target.com;pmworkorderadmin.partnersonline.com;poladmin.partnersonline.com;pop.partnersonline.com;qmp.partnersonline.com;qr.target.com;r2d2.target.com;rdmplus.target.com;recognize.target.com;redcard.target.com;redirect.studioconnect.live;rik.roundel.com;roundel.com;rubix.partnersonline.com;rubix.target.com;security.target.com;servicetech.target.com;sm.partnersonline.com;spark.partnersonline.com;spark.target.com;studioconnect.live;stylehub.target.com;synergy.partnersonline.com;target.com;targetmedianetwork.target.com;targetopenhouse.com;tepagent.target.com;tgt-files.target.com;tgtdriver.partnersonline.com;ti-event-prod.target.com;tiam.target.com;tiiam.target.com;tvi.partnersonline.com;viewpoint.target.com;weeklyad.target.com;www.partnersonline.com;www.roundel.com;www.target.com;www.targetopenhouse.com",
+		"ssl_cert_SerialNum": "0x012ede33fc9283773396e9b1ff995262",
+		"ssl_cert_AgID": "1.2.840.113549.1.1.11",
+		"ssl_cert_From": "210928164609Z",
+		"ssl_cert_To": "221030164608Z",
+		"ssl_cert_SSLFPAg": "1.2.840.113549.1.1.11",
+		"name": "SSL_RESULT_14"
+	},
+	{
+		"Tuple4": "10.10.10.162.55241>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_15"
+	},
+	{
+		"Tuple4": "10.10.10.162.55274>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_16"
+	},
+	{
+		"Tuple4": "10.10.10.162.55273>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_17"
+	},
+	{
+		"Tuple4": "10.10.10.162.55279>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_18"
+	},
+	{
+		"Tuple4": "10.10.10.162.55282>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_19"
+	},
+	{
+		"Tuple4": "10.10.10.162.55283>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_20"
+	},
+	{
+		"Tuple4": "10.10.10.162.55284>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_21"
+	},
+	{
+		"Tuple4": "10.10.10.162.55285>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_22"
+	},
+	{
+		"Tuple4": "10.10.10.162.55286>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_23"
+	},
+	{
+		"Tuple4": "10.10.10.162.55287>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_24"
+	},
+	{
+		"Tuple4": "10.10.10.162.55288>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_25"
+	},
+	{
+		"Tuple4": "10.10.10.162.55289>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_26"
+	},
+	{
+		"Tuple4": "10.10.10.162.55296>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_27"
+	},
+	{
+		"Tuple4": "10.10.10.162.55297>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_28"
+	},
+	{
+		"Tuple4": "10.10.10.162.55298>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_29"
+	},
+	{
+		"Tuple4": "10.10.10.162.55299>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_30"
+	},
+	{
+		"Tuple4": "10.10.10.162.55300>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_31"
+	},
+	{
+		"Tuple4": "10.10.10.162.55301>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_32"
+	},
+	{
+		"Tuple4": "10.10.10.162.55306>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_33"
+	},
+	{
+		"Tuple4": "10.10.10.162.55307>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_34"
+	},
+	{
+		"Tuple4": "10.10.10.162.55308>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_35"
+	},
+	{
+		"Tuple4": "10.10.10.162.55309>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_36"
+	},
+	{
+		"Tuple4": "10.10.10.162.55311>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_37"
+	},
+	{
+		"Tuple4": "10.10.10.162.55312>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_38"
+	},
+	{
+		"Tuple4": "10.10.10.162.55321>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_39"
+	},
+	{
+		"Tuple4": "10.10.10.162.55322>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_40"
+	},
+	{
+		"Tuple4": "10.10.10.162.55323>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_41"
+	},
+	{
+		"Tuple4": "10.10.10.162.55324>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_42"
+	},
+	{
+		"Tuple4": "10.10.10.162.55325>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_43"
+	},
+	{
+		"Tuple4": "10.10.10.162.55326>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_44"
+	},
+	{
+		"Tuple4": "10.10.10.162.55327>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_45"
+	},
+	{
+		"Tuple4": "10.10.10.162.55328>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_46"
+	},
+	{
+		"Tuple4": "10.10.10.162.55330>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_47"
+	},
+	{
+		"Tuple4": "10.10.10.162.55331>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_48"
+	},
+	{
+		"Tuple4": "10.10.10.162.55332>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_49"
+	},
+	{
+		"Tuple4": "10.10.10.162.55334>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_50"
+	},
+	{
+		"Tuple4": "10.10.10.162.55336>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_51"
+	},
+	{
+		"Tuple4": "10.10.10.162.55337>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_52"
+	},
+	{
+		"Tuple4": "10.10.10.162.55338>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_53"
+	},
+	{
+		"Tuple4": "10.10.10.162.55343>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_54"
+	},
+	{
+		"Tuple4": "10.10.10.162.55344>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_55"
+	},
+	{
+		"Tuple4": "10.10.10.162.55345>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_56"
+	},
+	{
+		"Tuple4": "10.10.10.162.55346>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_57"
+	},
+	{
+		"Tuple4": "10.10.10.162.55349>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_58"
+	},
+	{
+		"Tuple4": "10.10.10.162.55348>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_59"
+	},
+	{
+		"Tuple4": "10.10.10.162.55352>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_60"
+	},
+	{
+		"Tuple4": "10.10.10.162.55353>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_61"
+	},
+	{
+		"Tuple4": "10.10.10.162.55356>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_62"
+	},
+	{
+		"Tuple4": "10.10.10.162.55357>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_63"
+	},
+	{
+		"Tuple4": "10.10.10.162.55359>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_64"
+	},
+	{
+		"Tuple4": "10.10.10.162.55358>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_65"
+	},
+	{
+		"Tuple4": "10.10.10.162.55364>151.101.2.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_66"
+	}
+]

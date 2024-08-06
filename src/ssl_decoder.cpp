@@ -38,40 +38,13 @@ extern "C"
 #include "ssl_internal.h"
 #include "ssl_decoder.h"
 
-#define SSL_DECODER_FALSE 0
-#define SSL_DECODER_TRUE 1
-
-#define SSL_UUID_BYTES_SZ   16
-
-#define SSL_RANDOM_TIME_LEN 4
-#define SSL_RANDOM_SIZE		28
-
-#define SSL_HANDSHAKE_CLIENT_HELLO	1
-#define SSL_HANDSHAKE_SERVER_HELLO	2
-#define SSL_HANDSHAKE_CERTIFICATE	11
-#define SSL_HANDSHAKE_SERVER_KEY_EXCHANGE	12
-
-#define	SSL_CONTENT_TYPE_HANDSHAKE	0x16
-#define	SSL_CONTENT_TYPE_ALERT		0x15
-#define	SSL_CONTENT_TYPE_APPLICATION_DATA	0x17
-#define	SSL_CONTENT_TYPE_CHANGE_CIPHER_SPEC	0x14
-
-#define ALPN_EXT_TYPE					0x0010
-#define SERVER_NAME_EXT_TYPE			0x0000
-#define SERVER_NAME_HOST_TYPE 			0x0000
-#define SERVER_NAME_OTHER_TYPE 			0x0008
-#define SESSION_TICKET_EXT_TYPE 		0x0023
-#define ENCRPTED_SERVER_NAME_EXT_TYPE	0xFFCE
-#define ENCRPTED_CLIENT_HELLO_EXT_TYPE	0xFE0D
-#define	EC_POINT_FORMATS_EXT_TYPE		0x000B
-
-// https://datatracker.ietf.org/doc/html/rfc7919
-// Supported Groups
-#define SUPPORTED_GROUPS_EXT_TYPE		0x000A
-
-#define	SSL_DECODER_TOML_PATH	"conf/ssl/ssl_decoder.toml"
-
 UT_icd UT_ssl_hello_extension_icd={sizeof(struct ssl_decoder_ltv), NULL, NULL, NULL};
+
+struct ssl_certificate_chain
+{
+	uint8_t *data;
+	size_t data_sz;
+};
 
 struct ssl_handshake_type
 {
@@ -133,15 +106,6 @@ struct ssl_decoder_context
     struct ssl_record_trunk record_trunk;
 };
 
-struct ssl_message 
-{
-	int32_t magic;
-    enum ssl_message_type type;
-	char uuid_bytes[SSL_UUID_BYTES_SZ];
-	struct session *ss;
-	struct ssl_decoder_plugin_env *plugin_env;
-};
-
 void ssl_hello_md5sum(struct ssl_decoder_ltv *ltv, const char *str, size_t str_sz)
 {
 	MD5_CTX ctx;
@@ -169,7 +133,7 @@ void ssl_hello_md5sum(struct ssl_decoder_ltv *ltv, const char *str, size_t str_s
 // https://tools.ietf.org/html/draft-davidben-tls-grease-00
 static int32_t ssl_is_grease_value(unsigned short val)
 {
-	if ((val & 0x0f)!=0x0a)
+	if((val & 0x0f)!=0x0a)
 	{
 		return SSL_DECODER_FALSE;
 	}
@@ -228,11 +192,6 @@ void ssl_recod_buff_get0(struct ssl_record_trunk *record_trunk, uint8_t **record
 
     (*record_buff)=record_trunk->cache_buff;
     (*record_buff_sz)=record_trunk->cache_len;
-}
-
-void ssl_handshake_certificate_decode()
-{
-
 }
 
 void ssl_handshake_server_key_exchange_decode()
@@ -348,6 +307,235 @@ int32_t ssl_decoder_ltv_get(struct ssl_decoder_ltv *ltv, uint16_t type, uint8_t 
 	return ret;
 }
 
+uint32_t ssl_handshake_certificate_count_get(uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset, struct ssl_certificate_chain *cert_chain, uint32_t cert_chain_num)
+{
+	if(NULL==pdata || 0==pdata_sz)
+	{
+		return 0;
+	}
+
+	uint32_t count=0;
+	size_t offset=(*pdata_offset);
+
+	while(pdata_sz > offset)
+	{
+		if(count>=cert_chain_num)
+		{
+			break;
+		}
+		
+		int32_t one_cert_sz=0;
+		int32_t ret=ssl_read_be_u24(pdata, pdata_sz, &offset, (uint8_t *)&(one_cert_sz));
+		if(ret==SSL_DECODER_FALSE || one_cert_sz<=0 || (one_cert_sz+offset) > pdata_sz)
+		{
+			break;
+		}
+
+		cert_chain[count].data=pdata+offset;
+		cert_chain[count].data_sz=one_cert_sz;
+		offset+=one_cert_sz;
+		count++;
+	}
+	
+	return count;
+}
+
+enum ssl_certificate_type ssl_handshake_certificate_type_get(uint32_t count, uint32_t offset)
+{
+	if(offset>=count)
+	{
+		return SSL_CERTIFICATE_TYPE_UNKNOWN;
+	}
+
+	switch(offset)
+	{
+		case 0:
+			return SSL_CERTIFICATE_TYPE_INDIVIDUAL;
+		case 1:
+			return ((count==2) ? SSL_CERTIFICATE_TYPE_ROOT : SSL_CERTIFICATE_TYPE_MIDDLE);
+		case 2:
+			return ((count==3) ? SSL_CERTIFICATE_TYPE_ROOT : SSL_CERTIFICATE_TYPE_CHAIN);		
+		default:
+			break;
+	}
+
+	return (offset==count-1) ? SSL_CERTIFICATE_TYPE_ROOT : SSL_CERTIFICATE_TYPE_CHAIN;
+}
+
+int32_t ssl_x509_certificate_detail_decode(struct ssl_certificate *certificate, uint8_t *pdata, int32_t pdata_sz)
+{
+	X509_NAME *issuer=NULL;
+    X509_NAME *subject=NULL;
+
+    ASN1_STRING *serial=NULL;
+	ASN1_STRING *san_name=NULL;
+    
+	GENERAL_NAME *generalName=NULL;
+    GENERAL_NAMES *subjectAltNames=NULL;
+    
+    ASN1_TIME *start=NULL;
+    ASN1_TIME *end=NULL;
+	
+	EVP_PKEY *pkey=NULL;
+	const ASN1_OBJECT *salg;
+    const X509_ALGOR *tsig_alg;
+	
+	X509 *x509_handle=d2i_X509(NULL, (unsigned char const **)&pdata, pdata_sz);
+	if(x509_handle==NULL)
+	{
+		return SSL_DECODER_FALSE;
+	}
+	
+    /*version*/
+    certificate->version=X509_get_version(x509_handle);
+    if(certificate->version>SSL_CERTIFICATE_VERSION_MAX) 
+    {
+        X509_free(x509_handle);
+		return SSL_DECODER_FALSE;
+    }
+
+    /*serial num*/
+    serial=X509_get_serialNumber(x509_handle);
+    if(NULL != serial)
+    {
+        certificate->serial.len=MIN(ASN1_STRING_length(serial), (int)(sizeof(certificate->serial.value)-1));
+        memcpy(certificate->serial.value, ASN1_STRING_get0_data(serial), certificate->serial.len);
+    }
+
+    /*SSL AgID*/
+    tsig_alg=X509_get0_tbs_sigalg(x509_handle);
+    X509_ALGOR_get0(&salg, NULL, NULL, tsig_alg);
+    OBJ_obj2txt((char*)certificate->signature_algorithm.value, sizeof(certificate->signature_algorithm.value), salg, 1);
+    certificate->signature_algorithm.len=strlen((const char *)certificate->signature_algorithm.value);
+
+    /*SSL Issuer*/
+    issuer=X509_get_issuer_name(x509_handle);
+    if(NULL!=issuer)
+    {
+        X509_NAME_get_text_by_NID(issuer, NID_commonName, certificate->issuer.common, sizeof(certificate->issuer.common));
+        X509_NAME_get_text_by_NID(issuer, NID_organizationName, certificate->issuer.organization, sizeof(certificate->issuer.organization));
+        X509_NAME_get_text_by_NID(issuer, NID_organizationalUnitName, certificate->issuer.organizational_unit, sizeof(certificate->issuer.organizational_unit));
+        X509_NAME_get_text_by_NID(issuer, NID_localityName, certificate->issuer.locality, sizeof(certificate->issuer.locality));
+        X509_NAME_get_text_by_NID(issuer, NID_streetAddress, certificate->issuer.street_address, sizeof(certificate->issuer.street_address));
+        X509_NAME_get_text_by_NID(issuer, NID_stateOrProvinceName, certificate->issuer.state_or_Province, sizeof(certificate->issuer.state_or_Province));			
+        X509_NAME_get_text_by_NID(issuer, NID_countryName,  certificate->issuer.country, sizeof(certificate->issuer.country));
+
+        snprintf(certificate->issuer.rdn_sequence_list,
+                    sizeof(certificate->issuer.rdn_sequence_list),
+                    "%s;%s;%s;%s;%s;%s;%s",
+                    certificate->issuer.common,
+                    certificate->issuer.organization,
+                    certificate->issuer.organizational_unit,
+                    certificate->issuer.locality,
+                    certificate->issuer.street_address,
+                    certificate->issuer.state_or_Province,
+                    certificate->issuer.country);
+    }
+
+    /*SSL Subject*/
+    subject=X509_get_subject_name(x509_handle);
+    if(NULL!=subject)
+    {
+        X509_NAME_get_text_by_NID(subject, NID_commonName, certificate->subject.common, sizeof(certificate->subject.common));
+        X509_NAME_get_text_by_NID(subject, NID_organizationName, certificate->subject.organization, sizeof(certificate->subject.organization));
+        X509_NAME_get_text_by_NID(subject, NID_countryName, certificate->subject.country, sizeof(certificate->subject.country));
+        X509_NAME_get_text_by_NID(subject, NID_organizationalUnitName, certificate->subject.organizational_unit, sizeof(certificate->subject.organizational_unit));
+        X509_NAME_get_text_by_NID(subject, NID_localityName, certificate->subject.locality, sizeof(certificate->subject.locality));
+        X509_NAME_get_text_by_NID(subject, NID_streetAddress, certificate->subject.street_address, sizeof(certificate->subject.street_address));
+        X509_NAME_get_text_by_NID(subject, NID_stateOrProvinceName, certificate->subject.state_or_Province, sizeof(certificate->subject.state_or_Province));			
+        
+        snprintf(certificate->subject.rdn_sequence_list,
+                    sizeof(certificate->subject.rdn_sequence_list),
+                    "%s;%s;%s;%s;%s;%s;%s",
+                    certificate->subject.common,
+                    certificate->subject.organization,
+                    certificate->subject.organizational_unit,
+                    certificate->subject.locality,
+                    certificate->subject.street_address,
+                    certificate->subject.state_or_Province,
+                    certificate->subject.country);
+    }
+
+    /*SSL Subject keyInfo*/
+    pkey=X509_get_pubkey(x509_handle);
+    if(pkey!=NULL)
+    {
+    	//https://www.openssl.org/docs/man3.0/man3/i2d_PublicKey.html
+        certificate->subject_key.len=i2d_PublicKey(pkey, NULL);
+		if(certificate->subject_key.len>0)
+		{
+	        certificate->subject_key.value=(char *)malloc(certificate->subject_key.len);		
+	        int32_t ret=i2d_PublicKey(pkey, (unsigned char **)&(certificate->subject_key.value)); //!!! point32_t will be changed
+	        if(ret>0)
+	        {
+	        	 certificate->subject_key.value=certificate->subject_key.value-certificate->subject_key.len;
+	        }
+			else
+			{
+				free(certificate->subject_key.value);
+				certificate->subject_key.value=NULL;
+				certificate->subject_key.len=0;
+			}
+		}
+        EVP_PKEY_free(pkey);
+    }		
+            
+    /*validity*/
+    start=X509_get_notBefore(x509_handle);
+    end=X509_get_notAfter(x509_handle);
+    sprintf(certificate->validity.before, "%s", start->data);
+    sprintf(certificate->validity.after, "%s", end->data);				
+
+    /*subject bak*/	
+    subjectAltNames=(GENERAL_NAMES*)X509_get_ext_d2i(x509_handle, NID_subject_alt_name, NULL, NULL);  
+    if(!subjectAltNames)
+    {
+        X509_free(x509_handle);
+		return SSL_DECODER_TRUE;
+    }
+
+    int32_t san_count=sk_GENERAL_NAME_num(subjectAltNames);
+    if(san_count>0)
+    {
+        certificate->subject_alter.num=0;
+        certificate->subject_alter.name=(char (*)[MAX_ALTER_NAME_LEN])malloc(san_count * sizeof(char[MAX_ALTER_NAME_LEN]));
+        
+        for (int32_t i=0; i<san_count; i++)
+        {       
+            generalName=sk_GENERAL_NAME_value(subjectAltNames, i);
+            if(!generalName)
+            {
+                break;
+            }
+
+            if(GEN_DNS == generalName->type)
+            {
+                san_name=(ASN1_STRING*)GENERAL_NAME_get0_value(generalName, NULL);
+                if(ASN1_STRING_length(san_name)>0)
+                {
+                    char *san=(char*)ASN1_STRING_get0_data(san_name);
+                    int32_t length=MIN(strlen(san), sizeof(certificate->subject_alter.name[certificate->subject_alter.num])-1);
+                    memcpy(certificate->subject_alter.name[certificate->subject_alter.num], san, length);
+					certificate->subject_alter.name[certificate->subject_alter.num][length]='\0';
+                    certificate->subject_alter.num++;
+                }	
+            }			
+        }
+    }
+
+    if(subjectAltNames)
+    {
+        GENERAL_NAMES_free(subjectAltNames);
+    }
+
+    //https://www.openssl.org/docs/man1.1.1/man3/X509_ALGOR_get0.html
+    X509_ALGOR_get0(&salg, NULL, NULL, X509_get0_tbs_sigalg(x509_handle));
+    OBJ_obj2txt(certificate->algorithm_identifier.value, sizeof(certificate->algorithm_identifier.value), salg, 1);
+    certificate->algorithm_identifier.len=strlen((const char *)certificate->algorithm_identifier.value);
+
+	return SSL_DECODER_TRUE;
+}
+
 int32_t ssl_decoder_random_bytes_get(struct ssl_decoder_ltv *ltv, uint16_t type, uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset)
 {
 	if(pdata_sz<(*pdata_offset)+SSL_RANDOM_SIZE)
@@ -402,18 +590,12 @@ int32_t ssl_server_name_decode(struct ssl_decoder_ltv *sni, uint8_t *pdata, uint
 
 struct ssl_server_hello *ssl_handshake_server_hello_decode(uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset)
 {
-	int32_t total_len; //3
-	int32_t ret=ssl_read_be_u24(pdata, pdata_sz, pdata_offset, (uint8_t *)&(total_len));
-	if(total_len<0) /*CLIENT_HELLO_HDRLEN: 4 means client_type+len*/
-	{
-		return NULL;
-	}
-
+	int32_t ret=SSL_DECODER_FALSE;
 	struct ssl_server_hello *shello=(struct ssl_server_hello *)CALLOC(struct ssl_server_hello, 1);
 	ssl_read_be_u16(pdata, pdata_sz, pdata_offset, &(shello->version));
 	ssl_read_be_u32(pdata, pdata_sz, pdata_offset, &(shello->random_gmt_time));
 
-	for(int i=1; i<SSL_HELLO_LTV_MAX; i++)
+	for(int32_t i=1; i<SSL_HELLO_LTV_MAX; i++)
 	{
 		struct ssl_decoder_ltv *ltv=&(shello->ltv[i]);
 		switch(i)
@@ -481,18 +663,12 @@ struct ssl_server_hello *ssl_handshake_server_hello_decode(uint8_t *pdata, size_
 
 struct ssl_client_hello *ssl_handshake_client_hello_decode(uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset)
 {
-	int32_t total_len; //3
-	int32_t ret=ssl_read_be_u24(pdata, pdata_sz, pdata_offset, (uint8_t *)&(total_len));
-	if(total_len<0) /*CLIENT_HELLO_HDRLEN: 4 means client_type+len*/
-	{
-		return NULL;
-	}
-
+	int32_t ret=SSL_DECODER_FALSE;
 	struct ssl_client_hello *chello=(struct ssl_client_hello *)CALLOC(struct ssl_client_hello, 1);
 	ssl_read_be_u16(pdata, pdata_sz, pdata_offset, &(chello->version));
 	ssl_read_be_u32(pdata, pdata_sz, pdata_offset, &(chello->random_gmt_time));
 
-	for(int i=1; i<SSL_HELLO_LTV_MAX; i++)
+	for(int32_t i=1; i<SSL_HELLO_LTV_MAX; i++)
 	{
 		struct ssl_decoder_ltv *ltv=&(chello->ltv[i]);
 		switch(i)
@@ -724,29 +900,134 @@ int32_t ssl_client_hello_ja3_generate(struct ssl_client_hello *chello)
 	return SSL_DECODER_TRUE;
 }
 
-void ssl_handshake_decode(struct ssl_decoder_plugin_env *plugin_env, struct session *ss, uint8_t *segment_buff, size_t segment_buff_sz, size_t *segment_buff_offset)
+void ssl_message_publish(struct ssl_decoder_plugin_env *plugin_env, struct session *ss, enum ssl_message_type type, void *data)
 {
-	if(segment_buff==NULL || ((*segment_buff_offset)+1>segment_buff_sz))
+	struct ssl_message *message=(struct ssl_message *)malloc(sizeof(struct ssl_message));
+	message->magic=SSL_MESSAGE_MAGIC;
+	message->type=type;
+	message->ss=ss;
+	message->plugin_env=plugin_env;
+	message->data=data;
+
+	session_mq_publish_message(ss, plugin_env->ssl.topic_id, (void *)message);
+}
+
+
+void ssl_message_free(struct session *sess, void *msg, void *msg_free_arg)
+{
+	struct ssl_message *message=(struct ssl_message *)msg;
+	if(message==NULL || message->magic!=SSL_MESSAGE_MAGIC)
 	{
 		return ;
 	}
 
-	struct ssl_client_hello *chello=NULL;
-	struct ssl_server_hello *shello=NULL;
-	struct ssl_handshake_type *handshake_type=(struct ssl_handshake_type *)(segment_buff+(*segment_buff_offset));
-	(*segment_buff_offset)+=sizeof(struct ssl_handshake_type);
+	if(message->data!=NULL)
+	{
+		switch(message->type)
+		{
+			case	SSL_MESSAGE_CLIENT_HELLO:
+				{
+					struct ssl_client_hello *chello=(struct ssl_client_hello *)message->data;
+					if(chello->extensions!=NULL)
+					{
+						utarray_free(chello->extensions);
+					}
+				}
+				break;
+			case	SSL_MESSAGE_SERVER_HELLO:
+				{
+					struct ssl_server_hello *shello=(struct ssl_server_hello *)message->data;
+					if(shello->extensions!=NULL)
+					{
+						utarray_free(shello->extensions);
+					}
+				}
+				break;
+			case	SSL_MESSAGE_CERTIFICATE:
+				{
+					struct ssl_certificate *certificate=(struct ssl_certificate *)message->data;
+					if(certificate->subject_alter.name!=NULL)
+					{
+						FREE(certificate->subject_alter.name);
+					}
+
+					if(certificate->subject_key.value!=NULL)
+					{
+						FREE(certificate->subject_key.value);
+					}
+				}
+				break;
+			default:
+				break;
+		}
+
+		FREE(message->data);
+	}
+
+	FREE(message);
+}
+
+
+void ssl_handshake_decode(struct ssl_decoder_plugin_env *plugin_env, struct session *ss, uint8_t *pdata, size_t pdata_sz, size_t *pdata_offset)
+{
+	if(pdata==NULL || ((*pdata_offset)+1>pdata_sz))
+	{
+		return ;
+	}
+
+	struct ssl_handshake_type *handshake_type=(struct ssl_handshake_type *)(pdata+(*pdata_offset));
+	(*pdata_offset)+=sizeof(struct ssl_handshake_type);
+
+	int32_t total_len=0;
+	int32_t ret=ssl_read_be_u24(pdata, pdata_sz, pdata_offset, (uint8_t *)&total_len);
+	if(ret==SSL_DECODER_FALSE || total_len<0 || total_len+(*pdata_offset)>pdata_sz)
+	{
+		return ;
+	}
+
 	switch(handshake_type->content_type)
 	{
 		case	SSL_HANDSHAKE_CLIENT_HELLO:
-			chello=ssl_handshake_client_hello_decode(segment_buff, segment_buff_sz, segment_buff_offset);
-			ssl_client_hello_ja3_generate(chello);
+			{
+				struct ssl_client_hello *chello=ssl_handshake_client_hello_decode(pdata, pdata_sz, pdata_offset);
+				ssl_client_hello_ja3_generate(chello);
+				ssl_message_publish(plugin_env, ss, SSL_MESSAGE_CLIENT_HELLO, (void *)chello);
+			}
 			break;
 		case	SSL_HANDSHAKE_SERVER_HELLO:
-			shello=ssl_handshake_server_hello_decode(segment_buff, segment_buff_sz, segment_buff_offset);
-			ssl_server_hello_ja3s_generate(shello);
+			{
+				struct ssl_server_hello *shello=ssl_handshake_server_hello_decode(pdata, pdata_sz, pdata_offset);
+				ssl_server_hello_ja3s_generate(shello);
+				ssl_message_publish(plugin_env, ss, SSL_MESSAGE_SERVER_HELLO, (void *)shello);
+			}
 			break;
 		case	SSL_HANDSHAKE_CERTIFICATE:
-			// ssl_handshake_certificate_decode();
+			{
+				int32_t cert_total_len=0;
+			 	ret=ssl_read_be_u24(pdata, pdata_sz, pdata_offset, (uint8_t *)&cert_total_len);
+				if(ret==SSL_DECODER_FALSE || cert_total_len<0 || cert_total_len+(*pdata_offset)>pdata_sz || (cert_total_len+3)!=total_len)
+				{
+					return ;
+				}
+
+				struct ssl_certificate_chain cert_unit[SSL_CERTIFICATE_NUM_MAX];
+				uint32_t cert_count=ssl_handshake_certificate_count_get(pdata, pdata_sz, pdata_offset, cert_unit, SSL_CERTIFICATE_NUM_MAX);
+
+				for(uint32_t i=0, cert_offset=0; i<cert_count; i++, cert_offset++)
+				{
+					struct ssl_certificate *certificate=(struct ssl_certificate *)CALLOC(struct ssl_certificate, 1);
+
+					certificate->type=ssl_handshake_certificate_type_get(cert_count, cert_offset);
+					int32_t state=ssl_x509_certificate_detail_decode(certificate, cert_unit[i].data, cert_unit[i].data_sz);
+					if(state==SSL_DECODER_FALSE)
+					{
+						FREE(certificate);
+						return ;
+					}
+
+					ssl_message_publish(plugin_env, ss, SSL_MESSAGE_CERTIFICATE, (void *)certificate);
+				}
+			}
 			break;
 		case	SSL_HANDSHAKE_SERVER_KEY_EXCHANGE:
 			// ssl_handshake_server_key_exchange_decode();
@@ -773,11 +1054,11 @@ int32_t ssl_record_header_get(struct ssl_record_header *record_hdr, uint8_t *pda
 
 void ssl_tcp_stream_session_segment_data_cb(struct session *ss, int32_t topic_id, const void *msg, void *per_session_ctx, void *penv)
 {
-	size_t segment_buff_offset=0;
-    size_t segment_buff_sz=0;
-    uint8_t *segment_buff=NULL;
-    segment_buff=(uint8_t *)session_get0_current_payload(ss, &segment_buff_sz);
-    if(segment_buff_sz==0 || segment_buff==NULL)
+	size_t pdata_offset=0;
+    size_t pdata_sz=0;
+    uint8_t *pdata=NULL;
+    pdata=(uint8_t *)session_get0_current_payload(ss, &pdata_sz);
+    if(pdata_sz==0 || pdata==NULL)
     {
         return ;
     }
@@ -790,17 +1071,17 @@ void ssl_tcp_stream_session_segment_data_cb(struct session *ss, int32_t topic_id
 
     struct ssl_decoder_context *per_ss_ctx=(struct ssl_decoder_context *)(per_session_ctx);
 
-    ssl_recod_buff_get0(&(per_ss_ctx->record_trunk), &segment_buff, &segment_buff_sz);
-    if(segment_buff_sz<=SSL_RECORD_HEADER_SZ)
+    ssl_recod_buff_get0(&(per_ss_ctx->record_trunk), &pdata, &pdata_sz);
+    if(pdata_sz<=SSL_RECORD_HEADER_SZ)
     {
         return ;
     }
 
 	struct ssl_record_header record_hdr={0};
-	ssl_record_header_get(&record_hdr, segment_buff, segment_buff_sz, &segment_buff_offset);
-	if(!is_trunk_cache(&(per_ss_ctx->record_trunk)) && segment_buff_sz<record_hdr.total_len)
+	ssl_record_header_get(&record_hdr, pdata, pdata_sz, &pdata_offset);
+	if(!is_trunk_cache(&(per_ss_ctx->record_trunk)) && pdata_sz<record_hdr.total_len)
 	{
-		ssl_trunk_cache(&(per_ss_ctx->record_trunk), segment_buff, segment_buff_sz);
+		ssl_trunk_cache(&(per_ss_ctx->record_trunk), pdata, pdata_sz);
 		return ;
 	}
 
@@ -809,7 +1090,7 @@ void ssl_tcp_stream_session_segment_data_cb(struct session *ss, int32_t topic_id
 	switch(record_hdr.content_type)
 	{
 		case	SSL_CONTENT_TYPE_HANDSHAKE:
-			ssl_handshake_decode(plugin_env, ss, segment_buff, segment_buff_sz, &segment_buff_offset);
+			ssl_handshake_decode(plugin_env, ss, pdata, pdata_sz, &pdata_offset);
 			break;
 		case	SSL_CONTENT_TYPE_ALERT:
 			break;
@@ -825,11 +1106,6 @@ void ssl_tcp_stream_session_segment_data_cb(struct session *ss, int32_t topic_id
 			}
 			break;
 	}
-}
-
-void ssl_message_free(struct session *sess, void *msg, void *msg_free_arg)
-{
-
 }
 
 void *ssl_decoder_per_session_context_new(struct session *ss, void *penv)
@@ -858,7 +1134,7 @@ void ssl_decoder_per_session_context_free(struct session *ss, void *per_session_
 int32_t ssl_decoder_config_load(const char *cfg_path, struct ssl_decoder_plugin_env *plugin_env)
 {
     FILE *fp=fopen(cfg_path, "r");
-    if (NULL==fp)
+    if(NULL==fp)
     {
         fprintf(stderr, "[%s:%d] Can't open config file: %s", __FUNCTION__, __LINE__, cfg_path);
         return -1;

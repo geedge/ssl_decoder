@@ -12,9 +12,9 @@ extern "C"
 
 enum ssl_message_type
 {
-    SSL_CLIENT_HELLO,
-    SSL_SERVER_HELLO,
-    SSL_CERTIFICATE,
+    SSL_MESSAGE_CLIENT_HELLO,
+    SSL_MESSAGE_SERVER_HELLO,
+    SSL_MESSAGE_CERTIFICATE,
     SSL_PROTECTED_PAYLOAD,
     SSL_MSG_MAX,
 };
@@ -22,22 +22,22 @@ enum ssl_message_type
 struct ssl_message;
 enum ssl_message_type ssl_message_type_get(const struct ssl_message *msg);
 
-// SSL_CLIENT_HELLO
+// SSL_MESSAGE_CLIENT_HELLO
 int32_t ssl_message_esni_is_true(const struct ssl_message *msg);
 int32_t ssl_message_ech_is_true(const struct ssl_message *msg);
 
 void ssl_message_sni_get0(const struct ssl_message *msg, char **value, size_t *value_sz);
+void ssl_message_ja3hash_get0(const struct ssl_message *msg, char **value, size_t *value_sz);
 
 const char *ssl_message_readable_version_get0(const struct ssl_message *msg);
-const char *ssl_message_readable_ja3hash_get0(const struct ssl_message *msg);
 
-// SSL_SERVER_HELLO
-const char *ssl_message_readable_ja3shash_get0(const struct ssl_message *msg);
+// SSL_MESSAGE_SERVER_HELLO
+void ssl_message_ja3shash_get0(const struct ssl_message *msg, char **value, size_t *value_sz);
 
 void ssl_message_extensions_next(const struct ssl_message *msg, char **value, size_t *value_sz);
 int ssl_message_reset_extensions_iter(struct ssl_message *msg);
 
-// SSL_CERTIFICATE
+// SSL_MESSAGE_CERTIFICATE
 enum ssl_certificate_type
 {
     SSL_CERTIFICATE_TYPE_UNKNOWN=0,

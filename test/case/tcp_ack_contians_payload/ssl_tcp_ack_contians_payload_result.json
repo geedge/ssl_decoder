@@ -1,0 +1,114 @@
+[
+    {
+        "Tuple4": "36.251.161.167.39018>143.92.57.79.443",
+        "ssl_sni": "a.ywgyuv.cn",
+        "ssl_ech": "1",
+        "ssl_client_version": "TLS1.2",
+        "ssl_ja3_hash": "6f7971785f5cbbcb21819b6639f0e8f7",
+        "name": "SSL_RESULT_1"
+    },
+    {
+        "Tuple4": "36.251.161.167.39025>143.92.57.79.443",
+        "ssl_sni": "a.ywgyuv.cn",
+        "ssl_ech": "1",
+        "ssl_client_version": "TLS1.2",
+        "ssl_ja3_hash": "0ac1d260c0b1f0e3bf645d6580ea6343",
+        "name": "SSL_RESULT_2"
+    },
+    {
+        "Tuple4": "36.251.161.167.39112>143.92.57.79.443",
+        "ssl_sni": "a.ywgyuv.cn",
+        "ssl_ech": "1",
+        "ssl_client_version": "TLS1.2",
+        "ssl_ja3_hash": "ca54aeeb513ecacf4d7bc22c5d8f0b75",
+        "name": "SSL_RESULT_3"
+    },
+    {
+        "Tuple4": "36.251.161.167.39423>143.92.57.79.443",
+        "ssl_sni": "a.ywgyuv.cn",
+        "ssl_ech": "1",
+        "ssl_client_version": "TLS1.2",
+        "ssl_ja3_hash": "9e41793e6f0a1696bedc0876465e1f42",
+        "name": "SSL_RESULT_4"
+    },
+    {
+        "Tuple4": "36.251.161.167.39680>143.92.57.79.443",
+        "ssl_sni": "a.ywgyuv.cn",
+        "ssl_ech": "1",
+        "ssl_client_version": "TLS1.2",
+        "ssl_ja3_hash": "47c3fabcf1bc65a32a9d3fb8e70ab79d",
+        "name": "SSL_RESULT_5"
+    },
+    {
+        "Tuple4": "36.251.161.167.39809>143.92.57.79.443",
+        "ssl_sni": "a.ywgyuv.cn",
+        "ssl_ech": "1",
+        "ssl_client_version": "TLS1.2",
+        "ssl_ja3_hash": "04331a57b3e122e689c373712edf42c0",
+        "name": "SSL_RESULT_6"
+    },
+    {
+        "Tuple4": "36.251.161.167.39816>143.92.57.79.443",
+        "ssl_sni": "a.ywgyuv.cn",
+        "ssl_ech": "1",
+        "ssl_client_version": "TLS1.2",
+        "ssl_ja3_hash": "34c3efe4e6565e8eef2eaaeb7c12a1a6",
+        "name": "SSL_RESULT_7"
+    },
+    {
+        "Tuple4": "36.251.161.167.39820>143.92.57.79.443",
+        "ssl_sni": "a.ywgyuv.cn",
+        "ssl_ech": "1",
+        "ssl_client_version": "TLS1.2",
+        "ssl_ja3_hash": "cc97290a5bb4651489fe7a88e93ace90",
+        "name": "SSL_RESULT_8"
+    },
+    {
+        "Tuple4": "36.251.161.167.39825>143.92.57.79.443",
+        "ssl_sni": "a.ywgyuv.cn",
+        "ssl_ech": "1",
+        "ssl_client_version": "TLS1.2",
+        "ssl_ja3_hash": "4e6ae21ce8b876dc7cad2f5ca9a60b23",
+        "name": "SSL_RESULT_9"
+    },
+    {
+        "Tuple4": "36.251.161.167.39832>143.92.57.79.443",
+        "ssl_sni": "a.ywgyuv.cn",
+        "ssl_ech": "1",
+        "ssl_client_version": "TLS1.2",
+        "ssl_ja3_hash": "89cb560e9ee2d33728756a2d4d7b2900",
+        "name": "SSL_RESULT_10"
+    },
+    {
+        "Tuple4": "36.251.161.167.39850>143.92.57.79.443",
+        "ssl_sni": "a.ywgyuv.cn",
+        "ssl_ech": "1",
+        "ssl_client_version": "TLS1.2",
+        "ssl_ja3_hash": "7324d30178b21f4c3a60550ef43d5ab0",
+        "name": "SSL_RESULT_11"
+    },
+    {
+        "Tuple4": "36.251.161.167.39867>143.92.57.79.443",
+        "ssl_sni": "a.ywgyuv.cn",
+        "ssl_ech": "1",
+        "ssl_client_version": "TLS1.2",
+        "ssl_ja3_hash": "53fed08198669268c271fc320627c0c4",
+        "name": "SSL_RESULT_12"
+    },
+    {
+        "Tuple4": "36.251.161.167.39777>143.92.57.79.443",
+        "ssl_sni": "a.ywgyuv.cn",
+        "ssl_ech": "1",
+        "ssl_client_version": "TLS1.2",
+        "ssl_ja3_hash": "c3db97da3b30171e5cf9de314584b555",
+        "name": "SSL_RESULT_13"
+    },
+    {
+        "Tuple4": "36.251.161.167.39810>143.92.57.79.443",
+        "ssl_sni": "a.ywgyuv.cn",
+        "ssl_ech": "1",
+        "ssl_client_version": "TLS1.2",
+        "ssl_ja3_hash": "ff194650bab04e7b4cd55e66fd91c010",
+        "name": "SSL_RESULT_14"
+    }
+]

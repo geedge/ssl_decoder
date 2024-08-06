@@ -1,0 +1,1493 @@
+[
+	{
+		"Tuple4": "192.168.50.33.51933>54.230.21.91.443",
+		"name": "SSL_RESULT_1"
+	},
+	{
+		"Tuple4": "192.168.50.52.17312>142.250.66.99.443",
+		"ssl_sni": "www.gstatic.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"ssl_ja3s_hash": "eb1d94daa7e0344597e756a1fb6e7054",
+		"name": "SSL_RESULT_2"
+	},
+	{
+		"Tuple4": "192.168.50.52.17313>142.250.66.99.443",
+		"ssl_sni": "www.gstatic.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"ssl_ja3s_hash": "eb1d94daa7e0344597e756a1fb6e7054",
+		"name": "SSL_RESULT_3"
+	},
+	{
+		"Tuple4": "192.168.50.52.17330>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_4"
+	},
+	{
+		"Tuple4": "192.168.50.52.17332>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_5"
+	},
+	{
+		"Tuple4": "192.168.50.52.17331>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_6"
+	},
+	{
+		"Tuple4": "192.168.50.52.17335>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_7"
+	},
+	{
+		"Tuple4": "192.168.50.52.17337>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_8"
+	},
+	{
+		"Tuple4": "192.168.50.52.17336>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_9"
+	},
+	{
+		"Tuple4": "192.168.50.52.17339>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_10"
+	},
+	{
+		"Tuple4": "192.168.50.52.17340>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_11"
+	},
+	{
+		"Tuple4": "192.168.50.33.63477>142.250.66.78.443",
+		"name": "SSL_RESULT_12"
+	},
+	{
+		"Tuple4": "192.168.50.52.17356>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_13"
+	},
+	{
+		"Tuple4": "192.168.50.52.17357>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_14"
+	},
+	{
+		"Tuple4": "192.168.50.52.17358>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_15"
+	},
+	{
+		"Tuple4": "192.168.50.52.17359>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_16"
+	},
+	{
+		"Tuple4": "192.168.50.33.50714>142.250.66.134.443",
+		"name": "SSL_RESULT_17"
+	},
+	{
+		"Tuple4": "192.168.50.52.17367>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_18"
+	},
+	{
+		"Tuple4": "192.168.50.52.17368>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_19"
+	},
+	{
+		"Tuple4": "192.168.50.52.17370>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_20"
+	},
+	{
+		"Tuple4": "192.168.50.52.17369>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_21"
+	},
+	{
+		"Tuple4": "192.168.50.52.17378>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_22"
+	},
+	{
+		"Tuple4": "192.168.50.52.17379>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_23"
+	},
+	{
+		"Tuple4": "192.168.50.52.17383>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_24"
+	},
+	{
+		"Tuple4": "192.168.50.52.17382>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_25"
+	},
+	{
+		"Tuple4": "192.168.50.52.17385>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_26"
+	},
+	{
+		"Tuple4": "192.168.50.52.17389>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_27"
+	},
+	{
+		"Tuple4": "192.168.50.52.17387>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_28"
+	},
+	{
+		"Tuple4": "192.168.50.52.17386>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_29"
+	},
+	{
+		"Tuple4": "192.168.50.52.17390>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_30"
+	},
+	{
+		"Tuple4": "192.168.50.52.17391>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_31"
+	},
+	{
+		"Tuple4": "192.168.50.52.17392>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_32"
+	},
+	{
+		"Tuple4": "192.168.50.52.17395>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_33"
+	},
+	{
+		"Tuple4": "192.168.50.52.17393>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_34"
+	},
+	{
+		"Tuple4": "192.168.50.52.17396>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_35"
+	},
+	{
+		"Tuple4": "192.168.50.52.17394>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_36"
+	},
+	{
+		"Tuple4": "192.168.50.52.17397>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_37"
+	},
+	{
+		"Tuple4": "192.168.50.52.17398>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_38"
+	},
+	{
+		"Tuple4": "192.168.50.52.17403>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_39"
+	},
+	{
+		"Tuple4": "192.168.50.52.17402>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_40"
+	},
+	{
+		"Tuple4": "192.168.50.52.17405>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_41"
+	},
+	{
+		"Tuple4": "192.168.50.52.17404>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_42"
+	},
+	{
+		"Tuple4": "192.168.50.52.17406>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_43"
+	},
+	{
+		"Tuple4": "192.168.50.52.17407>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_44"
+	},
+	{
+		"Tuple4": "192.168.50.52.17409>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_45"
+	},
+	{
+		"Tuple4": "192.168.50.52.17408>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_46"
+	},
+	{
+		"Tuple4": "192.168.50.52.17413>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_47"
+	},
+	{
+		"Tuple4": "192.168.50.52.17412>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_48"
+	},
+	{
+		"Tuple4": "192.168.50.52.17415>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_49"
+	},
+	{
+		"Tuple4": "192.168.50.52.17416>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_50"
+	},
+	{
+		"Tuple4": "192.168.50.52.17421>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_51"
+	},
+	{
+		"Tuple4": "192.168.50.52.17420>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_52"
+	},
+	{
+		"Tuple4": "192.168.50.52.17422>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_53"
+	},
+	{
+		"Tuple4": "192.168.50.52.17423>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_54"
+	},
+	{
+		"Tuple4": "192.168.50.52.17424>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_55"
+	},
+	{
+		"Tuple4": "192.168.50.52.17429>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_56"
+	},
+	{
+		"Tuple4": "192.168.50.52.17430>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_57"
+	},
+	{
+		"Tuple4": "192.168.50.52.17380>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_58"
+	},
+	{
+		"Tuple4": "192.168.50.52.17438>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_59"
+	},
+	{
+		"Tuple4": "192.168.50.52.17388>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_60"
+	},
+	{
+		"Tuple4": "192.168.50.52.17439>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_61"
+	},
+	{
+		"Tuple4": "192.168.50.52.17401>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_62"
+	},
+	{
+		"Tuple4": "192.168.50.52.17400>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_63"
+	},
+	{
+		"Tuple4": "192.168.50.52.17440>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_64"
+	},
+	{
+		"Tuple4": "192.168.50.52.17442>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_65"
+	},
+	{
+		"Tuple4": "192.168.50.52.17443>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_66"
+	},
+	{
+		"Tuple4": "192.168.50.52.17441>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_67"
+	},
+	{
+		"Tuple4": "192.168.50.52.17410>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_68"
+	},
+	{
+		"Tuple4": "192.168.50.52.17444>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_69"
+	},
+	{
+		"Tuple4": "192.168.50.52.17445>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_70"
+	},
+	{
+		"Tuple4": "192.168.50.52.17419>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_71"
+	},
+	{
+		"Tuple4": "192.168.50.52.17417>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_72"
+	},
+	{
+		"Tuple4": "192.168.50.52.17414>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_73"
+	},
+	{
+		"Tuple4": "192.168.50.52.17411>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_74"
+	},
+	{
+		"Tuple4": "192.168.50.52.17448>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_75"
+	},
+	{
+		"Tuple4": "192.168.50.52.17449>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_76"
+	},
+	{
+		"Tuple4": "192.168.50.52.17451>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_77"
+	},
+	{
+		"Tuple4": "192.168.50.52.17452>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_78"
+	},
+	{
+		"Tuple4": "192.168.50.52.17453>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_79"
+	},
+	{
+		"Tuple4": "192.168.50.52.17454>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_80"
+	},
+	{
+		"Tuple4": "192.168.50.52.17455>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_81"
+	},
+	{
+		"Tuple4": "192.168.50.52.17425>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_82"
+	},
+	{
+		"Tuple4": "192.168.50.52.17426>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_83"
+	},
+	{
+		"Tuple4": "192.168.50.52.17456>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_84"
+	},
+	{
+		"Tuple4": "192.168.50.52.17457>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_85"
+	},
+	{
+		"Tuple4": "192.168.50.52.17458>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_86"
+	},
+	{
+		"Tuple4": "192.168.50.52.17459>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_87"
+	},
+	{
+		"Tuple4": "192.168.50.52.17428>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_88"
+	},
+	{
+		"Tuple4": "192.168.50.52.17460>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_89"
+	},
+	{
+		"Tuple4": "192.168.50.52.17461>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_90"
+	},
+	{
+		"Tuple4": "192.168.50.52.17462>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_91"
+	},
+	{
+		"Tuple4": "192.168.50.52.17464>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_92"
+	},
+	{
+		"Tuple4": "192.168.50.52.17463>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_93"
+	},
+	{
+		"Tuple4": "192.168.50.52.17466>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_94"
+	},
+	{
+		"Tuple4": "192.168.50.52.17465>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_95"
+	},
+	{
+		"Tuple4": "192.168.50.52.17468>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_96"
+	},
+	{
+		"Tuple4": "192.168.50.52.17431>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_97"
+	},
+	{
+		"Tuple4": "192.168.50.52.17469>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_98"
+	},
+	{
+		"Tuple4": "192.168.50.52.17470>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_99"
+	},
+	{
+		"Tuple4": "192.168.50.52.17473>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_100"
+	},
+	{
+		"Tuple4": "192.168.50.52.17474>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_101"
+	},
+	{
+		"Tuple4": "192.168.50.52.17471>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_102"
+	},
+	{
+		"Tuple4": "192.168.50.52.17472>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_103"
+	},
+	{
+		"Tuple4": "192.168.50.52.17475>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_104"
+	},
+	{
+		"Tuple4": "192.168.50.52.17476>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_105"
+	},
+	{
+		"Tuple4": "192.168.50.52.17477>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_106"
+	},
+	{
+		"Tuple4": "192.168.50.52.17481>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_107"
+	},
+	{
+		"Tuple4": "192.168.50.52.17479>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_108"
+	},
+	{
+		"Tuple4": "192.168.50.52.17483>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_109"
+	},
+	{
+		"Tuple4": "192.168.50.52.17484>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_110"
+	},
+	{
+		"Tuple4": "192.168.50.52.17485>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_111"
+	},
+	{
+		"Tuple4": "192.168.50.52.17486>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_112"
+	},
+	{
+		"Tuple4": "192.168.50.52.17487>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_113"
+	},
+	{
+		"Tuple4": "192.168.50.52.17488>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_114"
+	},
+	{
+		"Tuple4": "192.168.50.52.17490>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_115"
+	},
+	{
+		"Tuple4": "192.168.50.52.17491>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_116"
+	},
+	{
+		"Tuple4": "192.168.50.52.17492>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_117"
+	},
+	{
+		"Tuple4": "192.168.50.52.17493>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_118"
+	},
+	{
+		"Tuple4": "192.168.50.52.17494>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_119"
+	},
+	{
+		"Tuple4": "192.168.50.52.17495>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_120"
+	},
+	{
+		"Tuple4": "192.168.50.52.17496>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_121"
+	},
+	{
+		"Tuple4": "192.168.50.52.17497>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_122"
+	},
+	{
+		"Tuple4": "192.168.50.52.17498>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_123"
+	},
+	{
+		"Tuple4": "192.168.50.52.17499>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_124"
+	},
+	{
+		"Tuple4": "192.168.50.52.17500>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_125"
+	},
+	{
+		"Tuple4": "192.168.50.52.17501>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_126"
+	},
+	{
+		"Tuple4": "192.168.50.52.17502>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_127"
+	},
+	{
+		"Tuple4": "192.168.50.52.17503>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_128"
+	},
+	{
+		"Tuple4": "192.168.50.52.17504>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_129"
+	},
+	{
+		"Tuple4": "192.168.50.52.17505>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_130"
+	},
+	{
+		"Tuple4": "192.168.50.52.17506>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_131"
+	},
+	{
+		"Tuple4": "192.168.50.52.17507>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_132"
+	},
+	{
+		"Tuple4": "192.168.50.52.17508>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_133"
+	},
+	{
+		"Tuple4": "192.168.50.52.17509>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_134"
+	},
+	{
+		"Tuple4": "192.168.50.52.17511>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_135"
+	},
+	{
+		"Tuple4": "192.168.50.52.17510>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_136"
+	},
+	{
+		"Tuple4": "192.168.50.52.17512>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_137"
+	},
+	{
+		"Tuple4": "192.168.50.52.17513>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_138"
+	},
+	{
+		"Tuple4": "192.168.50.52.17514>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_139"
+	},
+	{
+		"Tuple4": "192.168.50.52.17515>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_140"
+	},
+	{
+		"Tuple4": "192.168.50.52.17516>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_141"
+	},
+	{
+		"Tuple4": "192.168.50.52.17519>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_142"
+	},
+	{
+		"Tuple4": "192.168.50.52.17518>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_143"
+	},
+	{
+		"Tuple4": "192.168.50.52.17520>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_144"
+	},
+	{
+		"Tuple4": "192.168.50.52.17521>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_145"
+	},
+	{
+		"Tuple4": "192.168.50.52.17522>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_146"
+	},
+	{
+		"Tuple4": "192.168.50.52.17523>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_147"
+	},
+	{
+		"Tuple4": "192.168.50.52.17524>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_148"
+	},
+	{
+		"Tuple4": "192.168.50.52.17526>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_149"
+	},
+	{
+		"Tuple4": "192.168.50.52.17525>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_150"
+	},
+	{
+		"Tuple4": "192.168.50.52.17527>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_151"
+	},
+	{
+		"Tuple4": "192.168.50.52.17528>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_152"
+	},
+	{
+		"Tuple4": "192.168.50.52.17529>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_153"
+	},
+	{
+		"Tuple4": "192.168.50.52.17530>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_154"
+	},
+	{
+		"Tuple4": "192.168.50.52.17446>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_155"
+	},
+	{
+		"Tuple4": "192.168.50.52.17418>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_156"
+	},
+	{
+		"Tuple4": "192.168.50.52.17447>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_157"
+	},
+	{
+		"Tuple4": "192.168.50.52.17531>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_158"
+	},
+	{
+		"Tuple4": "192.168.50.52.17450>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_159"
+	},
+	{
+		"Tuple4": "192.168.50.52.17532>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_160"
+	},
+	{
+		"Tuple4": "192.168.50.52.17533>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_161"
+	},
+	{
+		"Tuple4": "192.168.50.52.17480>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_162"
+	},
+	{
+		"Tuple4": "192.168.50.52.17478>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_163"
+	},
+	{
+		"Tuple4": "192.168.50.52.17482>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_164"
+	},
+	{
+		"Tuple4": "192.168.50.52.17534>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_165"
+	},
+	{
+		"Tuple4": "192.168.50.52.17536>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_166"
+	},
+	{
+		"Tuple4": "192.168.50.52.17517>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_167"
+	},
+	{
+		"Tuple4": "192.168.50.52.17540>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_168"
+	},
+	{
+		"Tuple4": "192.168.50.52.17399>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_169"
+	},
+	{
+		"Tuple4": "192.168.50.52.17541>23.57.112.179.443",
+		"ssl_sni": "target.scene7.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_170"
+	},
+	{
+		"Tuple4": "192.168.50.52.17535>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_171"
+	},
+	{
+		"Tuple4": "192.168.50.52.17542>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_172"
+	},
+	{
+		"Tuple4": "192.168.50.52.17543>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_173"
+	},
+	{
+		"Tuple4": "192.168.50.52.17545>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_174"
+	},
+	{
+		"Tuple4": "192.168.50.52.17546>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_175"
+	},
+	{
+		"Tuple4": "192.168.50.52.17547>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_176"
+	},
+	{
+		"Tuple4": "192.168.50.52.17548>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_177"
+	},
+	{
+		"Tuple4": "192.168.50.52.17549>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_178"
+	},
+	{
+		"Tuple4": "192.168.50.52.17550>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_179"
+	},
+	{
+		"Tuple4": "192.168.50.52.17551>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_180"
+	},
+	{
+		"Tuple4": "192.168.50.52.17552>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_181"
+	},
+	{
+		"Tuple4": "192.168.50.52.17554>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_182"
+	},
+	{
+		"Tuple4": "192.168.50.33.64967>54.230.21.91.443",
+		"name": "SSL_RESULT_183"
+	},
+	{
+		"Tuple4": "192.168.50.52.17553>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_184"
+	},
+	{
+		"Tuple4": "192.168.50.52.17555>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_185"
+	},
+	{
+		"Tuple4": "192.168.50.52.17559>151.101.130.180.443",
+		"ssl_sni": "assets.targetimg1.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"name": "SSL_RESULT_186"
+	},
+	{
+		"Tuple4": "192.168.50.33.57414>142.250.66.42.443",
+		"name": "SSL_RESULT_187"
+	},
+	{
+		"Tuple4": "192.168.50.33.60652>142.250.66.99.443",
+		"name": "SSL_RESULT_188"
+	},
+	{
+		"Tuple4": "192.168.50.33.58291>220.181.174.230.443",
+		"name": "SSL_RESULT_189"
+	},
+	{
+		"Tuple4": "192.168.50.33.50525>172.217.27.35.443",
+		"name": "SSL_RESULT_190"
+	},
+	{
+		"Tuple4": "192.168.50.33.56708>142.250.204.36.443",
+		"name": "SSL_RESULT_191"
+	},
+	{
+		"Tuple4": "192.168.50.33.55558>142.250.66.99.443",
+		"name": "SSL_RESULT_192"
+	},
+	{
+		"Tuple4": "192.168.50.33.65240>142.250.204.86.443",
+		"name": "SSL_RESULT_193"
+	},
+	{
+		"Tuple4": "192.168.50.33.57554>142.250.204.65.443",
+		"name": "SSL_RESULT_194"
+	},
+	{
+		"Tuple4": "192.168.50.33.65100>142.250.207.74.443",
+		"name": "SSL_RESULT_195"
+	},
+	{
+		"Tuple4": "192.168.50.33.54638>142.250.204.110.443",
+		"name": "SSL_RESULT_196"
+	},
+	{
+		"Tuple4": "192.168.50.33.63347>142.250.66.131.443",
+		"name": "SSL_RESULT_197"
+	},
+	{
+		"Tuple4": "192.168.50.52.1079>40.119.211.203.443",
+		"name": "SSL_RESULT_198"
+	},
+	{
+		"Tuple4": "192.168.50.52.17311>142.250.66.99.443",
+		"ssl_sni": "www.gstatic.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"ssl_ja3s_hash": "eb1d94daa7e0344597e756a1fb6e7054",
+		"name": "SSL_RESULT_199"
+	},
+	{
+		"Tuple4": "192.168.50.52.14756>172.217.24.110.443",
+		"name": "SSL_RESULT_200"
+	},
+	{
+		"Tuple4": "192.168.50.52.27956>40.90.189.152.443",
+		"name": "SSL_RESULT_201"
+	},
+	{
+		"Tuple4": "192.168.50.52.17376>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"ssl_ja3s_hash": "16c0b3e6a7b8173c16d944cfeaeee9cf",
+		"ssl_cert_version": "v3",
+		"ssl_cert_Issuer": "GlobalSign Atlas R3 OV TLS CA H2 2021;GlobalSign nv-sa;;;;;BE",
+		"ssl_cert_IssuerCN": "GlobalSign Atlas R3 OV TLS CA H2 2021",
+		"ssl_cert_IssuerO": "GlobalSign nv-sa",
+		"ssl_cert_IssuerC": "BE",
+		"ssl_cert_Sub": "sites.target.com;Target Corporation;;Minneapolis;;Minnesota;US",
+		"ssl_cert_SubCN": "sites.target.com",
+		"ssl_cert_SubO": "Target Corporation",
+		"ssl_cert_SubC": "US",
+		"ssl_cert_SubP": "Minnesota",
+		"ssl_cert_SubL": "Minneapolis",
+		"ssl_cert_SubAltName": "sites.target.com;affiliate.target.com;android.studioconnect.live;api.studioconnect.live;apollo-metrics.target.com;assethub.partnersonline.com;assethub.target.com;awesomeshop.target.com;bex.partnersonline.com;bex.target.com;cartster.target.com;cartwheel.target.com;cartwheelws-secure.target.com;circle.target.com;connect.roundel.com;connectedcommerce.target.com;corporate.target.com;developer.target.com;dojo.target.com;doppler.partnersonline.com;elevate.target.com;extgargantua.partnersonline.com;factorial.partnersonline.com;finds.target.com;gql.studioconnect.live;greenfield.partnersonline.com;greenfield.target.com;hrocdocrequest.target.com;iccon.target.com;incubator.target.com;india.target.com;ios.studioconnect.live;jira.target.com;launchpad.partnersonline.com;launchpad.target.com;leads.studioconnect.live;m.target.com;marketinghub.target.com;mercury.partnersonline.com;mickra.target.com;mickradashboard.target.com;mvs.partnersonline.com;mytime.target.com;nic.target;openhouse.target.com;opensource.target.com;osmosis.partnersonline.com;partnersonline.com;pcn.partnersonline.com;peg.partnersonline.com;photosubmission.target.com;pid.partnersonline.com;plus.target.com;pmworkorderadmin.partnersonline.com;poladmin.partnersonline.com;pop.partnersonline.com;qmp.partnersonline.com;qr.target.com;r2d2.target.com;rdmplus.target.com;recognize.target.com;redcard.target.com;redirect.studioconnect.live;rik.roundel.com;roundel.com;rubix.partnersonline.com;rubix.target.com;security.target.com;servicetech.target.com;sm.partnersonline.com;spark.partnersonline.com;spark.target.com;studioconnect.live;stylehub.target.com;synergy.partnersonline.com;target.com;targetmedianetwork.target.com;targetopenhouse.com;tepagent.target.com;tgt-files.target.com;tgtdriver.partnersonline.com;ti-event-prod.target.com;tiam.target.com;tiiam.target.com;tvi.partnersonline.com;viewpoint.target.com;weeklyad.target.com;www.partnersonline.com;www.roundel.com;www.target.com;www.targetopenhouse.com",
+		"ssl_cert_SerialNum": "0x012ede33fc9283773396e9b1ff995262",
+		"ssl_cert_AgID": "1.2.840.113549.1.1.11",
+		"ssl_cert_From": "210928164609Z",
+		"ssl_cert_To": "221030164608Z",
+		"ssl_cert_SSLFPAg": "1.2.840.113549.1.1.11",
+		"name": "SSL_RESULT_202"
+	},
+	{
+		"Tuple4": "192.168.50.52.17384>220.181.174.102.443",
+		"ssl_sni": "securepubads.g.doubleclick.net",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "598872011444709307b861ae817a4b60",
+		"ssl_ja3s_hash": "2b0648ab686ee45e0e7c35fcfb0eea7e",
+		"name": "SSL_RESULT_203"
+	},
+	{
+		"Tuple4": "192.168.50.52.17427>172.217.31.2.443",
+		"ssl_sni": "pagead2.googlesyndication.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "598872011444709307b861ae817a4b60",
+		"ssl_ja3s_hash": "2b0648ab686ee45e0e7c35fcfb0eea7e",
+		"name": "SSL_RESULT_204"
+	},
+	{
+		"Tuple4": "192.168.50.52.17381>23.57.114.38.443",
+		"ssl_sni": "js-sec.indexww.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"ssl_ja3s_hash": "410b9bedaf65dd26c6fe547154d60db4",
+		"name": "SSL_RESULT_205"
+	},
+	{
+		"Tuple4": "192.168.50.52.17432>220.181.174.102.443",
+		"ssl_sni": "securepubads.g.doubleclick.net",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "598872011444709307b861ae817a4b60",
+		"ssl_ja3s_hash": "2b0648ab686ee45e0e7c35fcfb0eea7e",
+		"name": "SSL_RESULT_206"
+	},
+	{
+		"Tuple4": "192.168.50.52.17434>15.197.193.217.443",
+		"ssl_sni": "match.adsrvr.org",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"ssl_ja3s_hash": "8d2a028aa94425f76ced7826b1f39039",
+		"ssl_cert_version": "v3",
+		"ssl_cert_Issuer": "GlobalSign GCC R3 DV TLS CA 2020;GlobalSign nv-sa;;;;;BE",
+		"ssl_cert_IssuerCN": "GlobalSign GCC R3 DV TLS CA 2020",
+		"ssl_cert_IssuerO": "GlobalSign nv-sa",
+		"ssl_cert_IssuerC": "BE",
+		"ssl_cert_Sub": "*.adsrvr.org;;;;;;",
+		"ssl_cert_SubCN": "*.adsrvr.org",
+		"ssl_cert_SubAltName": "*.adsrvr.org;adsrvr.org",
+		"ssl_cert_SerialNum": "0x2ddaa6f359d4ce458fe983f1",
+		"ssl_cert_AgID": "1.2.840.113549.1.1.11",
+		"ssl_cert_From": "220331203750Z",
+		"ssl_cert_To": "230502203749Z",
+		"ssl_cert_SSLFPAg": "1.2.840.113549.1.1.11",
+		"name": "SSL_RESULT_207"
+	},
+	{
+		"Tuple4": "192.168.50.52.17375>151.101.194.187.443",
+		"ssl_sni": "www.target.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"ssl_ja3s_hash": "16c0b3e6a7b8173c16d944cfeaeee9cf",
+		"ssl_cert_version": "v3",
+		"ssl_cert_Issuer": "GlobalSign Atlas R3 OV TLS CA H2 2021;GlobalSign nv-sa;;;;;BE",
+		"ssl_cert_IssuerCN": "GlobalSign Atlas R3 OV TLS CA H2 2021",
+		"ssl_cert_IssuerO": "GlobalSign nv-sa",
+		"ssl_cert_IssuerC": "BE",
+		"ssl_cert_Sub": "sites.target.com;Target Corporation;;Minneapolis;;Minnesota;US",
+		"ssl_cert_SubCN": "sites.target.com",
+		"ssl_cert_SubO": "Target Corporation",
+		"ssl_cert_SubC": "US",
+		"ssl_cert_SubP": "Minnesota",
+		"ssl_cert_SubL": "Minneapolis",
+		"ssl_cert_SubAltName": "sites.target.com;affiliate.target.com;android.studioconnect.live;api.studioconnect.live;apollo-metrics.target.com;assethub.partnersonline.com;assethub.target.com;awesomeshop.target.com;bex.partnersonline.com;bex.target.com;cartster.target.com;cartwheel.target.com;cartwheelws-secure.target.com;circle.target.com;connect.roundel.com;connectedcommerce.target.com;corporate.target.com;developer.target.com;dojo.target.com;doppler.partnersonline.com;elevate.target.com;extgargantua.partnersonline.com;factorial.partnersonline.com;finds.target.com;gql.studioconnect.live;greenfield.partnersonline.com;greenfield.target.com;hrocdocrequest.target.com;iccon.target.com;incubator.target.com;india.target.com;ios.studioconnect.live;jira.target.com;launchpad.partnersonline.com;launchpad.target.com;leads.studioconnect.live;m.target.com;marketinghub.target.com;mercury.partnersonline.com;mickra.target.com;mickradashboard.target.com;mvs.partnersonline.com;mytime.target.com;nic.target;openhouse.target.com;opensource.target.com;osmosis.partnersonline.com;partnersonline.com;pcn.partnersonline.com;peg.partnersonline.com;photosubmission.target.com;pid.partnersonline.com;plus.target.com;pmworkorderadmin.partnersonline.com;poladmin.partnersonline.com;pop.partnersonline.com;qmp.partnersonline.com;qr.target.com;r2d2.target.com;rdmplus.target.com;recognize.target.com;redcard.target.com;redirect.studioconnect.live;rik.roundel.com;roundel.com;rubix.partnersonline.com;rubix.target.com;security.target.com;servicetech.target.com;sm.partnersonline.com;spark.partnersonline.com;spark.target.com;studioconnect.live;stylehub.target.com;synergy.partnersonline.com;target.com;targetmedianetwork.target.com;targetopenhouse.com;tepagent.target.com;tgt-files.target.com;tgtdriver.partnersonline.com;ti-event-prod.target.com;tiam.target.com;tiiam.target.com;tvi.partnersonline.com;viewpoint.target.com;weeklyad.target.com;www.partnersonline.com;www.roundel.com;www.target.com;www.targetopenhouse.com",
+		"ssl_cert_SerialNum": "0x012ede33fc9283773396e9b1ff995262",
+		"ssl_cert_AgID": "1.2.840.113549.1.1.11",
+		"ssl_cert_From": "210928164609Z",
+		"ssl_cert_To": "221030164608Z",
+		"ssl_cert_SSLFPAg": "1.2.840.113549.1.1.11",
+		"name": "SSL_RESULT_208"
+	},
+	{
+		"Tuple4": "192.168.50.52.17433>3.217.136.163.443",
+		"ssl_sni": "idx.liadm.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"ssl_ja3s_hash": "303951d4c50efb2e991652225a6f02b1",
+		"name": "SSL_RESULT_209"
+	},
+	{
+		"Tuple4": "192.168.50.52.17437>3.217.136.163.443",
+		"ssl_sni": "idx.liadm.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"ssl_ja3s_hash": "303951d4c50efb2e991652225a6f02b1",
+		"name": "SSL_RESULT_210"
+	},
+	{
+		"Tuple4": "192.168.50.52.17544>142.250.207.74.443",
+		"ssl_sni": "content-autofill.googleapis.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "598872011444709307b861ae817a4b60",
+		"ssl_ja3s_hash": "2b0648ab686ee45e0e7c35fcfb0eea7e",
+		"name": "SSL_RESULT_211"
+	},
+	{
+		"Tuple4": "192.168.50.57.54160>39.105.29.36.443",
+		"name": "SSL_RESULT_212"
+	},
+	{
+		"Tuple4": "192.168.50.57.54162>39.105.29.36.443",
+		"name": "SSL_RESULT_213"
+	}
+]

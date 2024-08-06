@@ -10,6 +10,7 @@ extern "C"
 {
 
 #include "cJSON.h"
+#include "yyjson/yyjson.h"
 #include "ssl_decoder.h"
 #include "toml/toml.h"
 
@@ -25,17 +26,20 @@ extern "C"
 
 #define	ssl_DECODER_TEST_TOML_PATH "./etc/ssl/ssl_decoder.toml"
 
+struct ssl_decoder_test_context
+{
+	yyjson_mut_doc *doc;
+	yyjson_mut_val *ssl_object;
+};
+
 struct ssl_decoder_test_plugin_env
 {
 	int plugin_id;
 	int topic_id;
 	int result_index;
 	int commit_result_enable;
-	int decode_resource_record_enable;
-	int export_resource_record_enable;
 };
 
-extern "C" void perf_resource_record_decode(struct ssl_message *ssl_msg);
 extern "C" int commit_test_result_json(cJSON *node, const char *name);
 
 void ssl_real_result_write_file(char *result_str)
@@ -50,17 +54,86 @@ void ssl_real_result_write_file(char *result_str)
 
 void ssl_decoder_test_message_cb(struct session *ss, int topic_id, const void *msg, void *per_session_ctx, void *plugin_env_str)
 {
+	struct ssl_message *ssl_msg=(struct ssl_message *)msg;
+	if(ssl_msg==NULL)
+	{
+		return;
+	}
 
+	struct ssl_decoder_test_context *per_ss_ctx=(struct ssl_decoder_test_context *)per_session_ctx;
+
+	enum ssl_message_type msg_type=ssl_message_type_get(ssl_msg);
+	switch(msg_type)
+	{
+		case	SSL_MESSAGE_CLIENT_HELLO:
+			{
+				yyjson_mut_obj_add_str(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_client_version", ssl_message_readable_version_get0(ssl_msg));
+
+				char *sni=NULL;
+				size_t sni_sz=0;
+				ssl_message_sni_get0(ssl_msg, &sni, &sni_sz);
+				yyjson_mut_obj_add_strn(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_sni", sni, sni_sz);
+
+				char *ja3=NULL;
+				size_t ja3_sz=0;
+				ssl_message_ja3hash_get0(ssl_msg, &ja3, &ja3_sz);
+				yyjson_mut_obj_add_strn(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_ja3_hash", ja3, ja3_sz);
+
+				int32_t esni_flag=ssl_message_esni_is_true(ssl_msg);
+				yyjson_mut_obj_add_int(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_esni", esni_flag);
+
+				int32_t ech_flag=ssl_message_ech_is_true(ssl_msg);
+				yyjson_mut_obj_add_int(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_ech", ech_flag);
+			}
+			break;
+		case	SSL_MESSAGE_SERVER_HELLO:
+			{
+				yyjson_mut_obj_add_str(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_server_version", ssl_message_readable_version_get0(ssl_msg));
+
+				char *ja3s=NULL;
+				size_t ja3s_sz=0;
+				ssl_message_ja3shash_get0(ssl_msg, &ja3s, &ja3s_sz);
+				yyjson_mut_obj_add_strn(per_ss_ctx->doc ,per_ss_ctx->ssl_object, "ssl_ja3s_hash", ja3s, ja3s_sz);
+			}
+			break;
+		case	SSL_MESSAGE_CERTIFICATE:
+			break;
+		case	SSL_PROTECTED_PAYLOAD:
+			break;
+		default:
+			break;
+	}
 }
 
-void *ssl_decoder_test_per_session_context_new(struct session *sess, void *plugin_env)
+void *ssl_decoder_test_per_session_context_new(struct session *ss, void *plugin_env)
 {
-    return NULL;
+	struct ssl_decoder_test_context *per_ss_ctx=(struct ssl_decoder_test_context *)calloc(1, sizeof(struct ssl_decoder_test_context));
+	per_ss_ctx->doc=yyjson_mut_doc_new(0);
+	per_ss_ctx->ssl_object=yyjson_mut_obj(per_ss_ctx->doc);
+
+    return (void *)per_ss_ctx;
 }
 
-void ssl_decoder_test_per_session_context_free(struct session *sess, void *session_ctx, void *plugin_env)
+void ssl_decoder_test_per_session_context_free(struct session *ss, void *per_session_ctx, void *plugin_env_str)
 {
+	struct ssl_decoder_test_plugin_env *plugin_env=(struct ssl_decoder_test_plugin_env *)plugin_env_str;
+	struct ssl_decoder_test_context *per_ss_ctx=(struct ssl_decoder_test_context *)per_session_ctx;
+	if(per_ss_ctx==NULL)
+	{
+		return;
+	}
 
+	yyjson_mut_doc_set_root(per_ss_ctx->doc, per_ss_ctx->ssl_object);
+	char *json_str=yyjson_mut_write(per_ss_ctx->doc, 0, 0);
+	yyjson_mut_doc_free(per_ss_ctx->doc);
+
+	char result_name[16]="";
+	sprintf(result_name, "SSL_RESULT_%d", plugin_env->result_index++);
+	cJSON *real_result=cJSON_Parse(json_str);
+	commit_test_result_json(real_result, result_name);
+
+	free(json_str);
+	free(per_ss_ctx);
 }
 
 int32_t ssl_decoder_test_config_load(const char *cfg_path, struct ssl_decoder_test_plugin_env *plugin_env)
@@ -122,62 +195,6 @@ int32_t ssl_decoder_test_config_load(const char *cfg_path, struct ssl_decoder_te
 		{
 			plugin_env->commit_result_enable=1;
 			fprintf(stderr, "[%s:%d] config file: %s key: [decoder.ssl.test.commit_result_enable] value is not yes or no", __FUNCTION__, __LINE__, cfg_path);
-		}
-	}
-
-    toml_table_t *perf_tbl=toml_table_in(test_tbl, "perf");
-    if(NULL==perf_tbl)
-    {
-        fprintf(stderr, "[%s:%d] config file: %s has no key: [decoder.ssl.test.perf]", __FUNCTION__, __LINE__, cfg_path);
-        toml_free(root);
-        return -1;
-    }
-
-	// decode_resource_record_enable
-	toml_datum_t decode_resource_record_enable_val=toml_string_in(perf_tbl, "decode_resource_record_enable");
-	if(decode_resource_record_enable_val.ok==0)
-	{
-		plugin_env->decode_resource_record_enable=0;
-		fprintf(stderr, "[%s:%d] config file: %s has no key: [decoder.ssl.test.decode_resource_record_enable]", __FUNCTION__, __LINE__, cfg_path);
-	}
-	else
-	{
-		if(memcmp("no", decode_resource_record_enable_val.u.s, strlen("no"))==0)
-		{
-			plugin_env->decode_resource_record_enable=0;
-		}
-		else if(memcmp("yes", decode_resource_record_enable_val.u.s, strlen("yes"))==0)
-		{
-			plugin_env->decode_resource_record_enable=1;
-		}
-		else
-		{
-			plugin_env->decode_resource_record_enable=1;
-			fprintf(stderr, "[%s:%d] config file: %s key: [decoder.ssl.test.decode_resource_record_enable] value is not yes or no", __FUNCTION__, __LINE__, cfg_path);
-		}
-	}
-
-	// export_resource_record_enable
-	toml_datum_t export_resource_record_enable_val=toml_string_in(perf_tbl, "export_resource_record_enable");
-	if(export_resource_record_enable_val.ok==0)
-	{
-		plugin_env->export_resource_record_enable=0;
-		fprintf(stderr, "[%s:%d] config file: %s has no key: [decoder.ssl.test.export_resource_record_enable]", __FUNCTION__, __LINE__, cfg_path);
-	}
-	else
-	{
-		if(memcmp("no", export_resource_record_enable_val.u.s, strlen("no"))==0)
-		{
-			plugin_env->export_resource_record_enable=0;
-		}
-		else if(memcmp("yes", export_resource_record_enable_val.u.s, strlen("yes"))==0)
-		{
-			plugin_env->export_resource_record_enable=1;
-		}
-		else
-		{
-			plugin_env->export_resource_record_enable=1;
-			fprintf(stderr, "[%s:%d] config file: %s key: [decoder.ssl.test.export_resource_record_enable] value is not yes or no", __FUNCTION__, __LINE__, cfg_path);
 		}
 	}
 

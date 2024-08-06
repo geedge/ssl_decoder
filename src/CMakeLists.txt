@@ -6,7 +6,7 @@ include_directories(${PROJECT_SOURCE_DIR}/deps/)
 aux_source_directory(${PROJECT_SOURCE_DIR}/deps/toml DEPS_SRC)
 aux_source_directory(${PROJECT_SOURCE_DIR}/deps/yyjson DEPS_SRC)
 
-set(SSL_DECODER_SRC ${DEPS_SRC} ssl_decoder.cpp)
+set(SSL_DECODER_SRC ${DEPS_SRC} ssl_decoder.cpp ssl_export.cpp)
 
 add_library(ssl_decoder SHARED ${SSL_DECODER_SRC})
 set_target_properties(ssl_decoder PROPERTIES LINK_FLAGS "-Wl,--version-script=${PROJECT_SOURCE_DIR}/src/version.map")

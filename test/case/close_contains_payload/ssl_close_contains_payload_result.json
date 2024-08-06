@@ -1,0 +1,28 @@
+[
+	{
+		"Tuple4": "192.168.50.28.63669>18.163.185.193.443",
+		"ssl_sni": "www.firefox.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "45b1a0eca9605cd8789cd7e1a5ccd9b0",
+		"ssl_ja3s_hash": "9a1de6823a92d66172ce93d309e73e4e",
+		"ssl_cert_version": "v3",
+		"ssl_cert_Issuer": "DigiCert SHA2 Secure Server CA;DigiCert Inc;;;;;US",
+		"ssl_cert_IssuerCN": "DigiCert SHA2 Secure Server CA",
+		"ssl_cert_IssuerO": "DigiCert Inc",
+		"ssl_cert_IssuerC": "US",
+		"ssl_cert_Sub": "redirect-san.mozilla.org;Mozilla Corporation;WebOps;Mountain View;;California;US",
+		"ssl_cert_SubCN": "redirect-san.mozilla.org",
+		"ssl_cert_SubO": "Mozilla Corporation",
+		"ssl_cert_SubC": "US",
+		"ssl_cert_SubP": "California",
+		"ssl_cert_SubL": "Mountain View",
+		"ssl_cert_SubU": "WebOps",
+		"ssl_cert_SubAltName": "leandatapractices.org;leandatapractices.com;mozilla-podcasts.org;mozilla.com;gv.dev;getfirefox.com;geckoview.dev;firefoxquantum.com;firefox.com;taskcluster.net;contributejson.org;www.firefox.com;masterfirefoxos.mozilla.org;mobilepartners.mozilla.org;www.leandatapractices.org;www.leandatapractices.com;www.getfirefox.com;mozilla.org.uk;webwewant.mozilla.org;thehub.mozilla.com;nightly.mozilla.org;pontoon.mozillalabs.com;videos.mozilla.org;videos-cdn.mozilla.net;treestatus.mozilla.org;techspeakers.mozilla.org;redirect-san.mozilla.org;input.mozilla.com;join.mozilla.org;content.mozilla.org;activations.mozilla.org;addons.mozilla.com;airmo.mozilla.org;ask.mozilla.org;aurora.mozilla.org;beta.mozilla.org;careers.mozilla.com;designlanguage.mozilla.org;input.mozilla.org;dnt.mozilla.org;events.mozilla.org;forums.mozilla.org;friends.mozilla.org;git.mozilla.org;hub.mozilla.com;hub.mozilla.org;activations.mozilla.com;www.mozilla.com",
+		"ssl_cert_SerialNum": "0x019d2b994ec99445c735d2a6d739e43a",
+		"ssl_cert_AgID": "1.2.840.113549.1.1.11",
+		"ssl_cert_From": "200406000000Z",
+		"ssl_cert_To": "210414120000Z",
+		"ssl_cert_SSLFPAg": "1.2.840.113549.1.1.11",
+		"name": "SSL_RESULT_1"
+	}
+]

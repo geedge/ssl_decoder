@@ -4,6 +4,44 @@
 #include <stddef.h>
 
 #include <uthash/utarray.h>
+#include "ssl_decoder.h"
+
+#define	SSL_DECODER_TOML_PATH	"conf/ssl/ssl_decoder.toml"
+
+#define SSL_DECODER_FALSE 0
+#define SSL_DECODER_TRUE 1
+
+#define SSL_UUID_BYTES_SZ   16
+
+#define SSL_RANDOM_TIME_LEN 4
+#define SSL_RANDOM_SIZE		28
+
+#define SSL_HANDSHAKE_CLIENT_HELLO	1
+#define SSL_HANDSHAKE_SERVER_HELLO	2
+#define SSL_HANDSHAKE_CERTIFICATE	11
+#define SSL_HANDSHAKE_SERVER_KEY_EXCHANGE	12
+
+#define	SSL_CONTENT_TYPE_HANDSHAKE	0x16
+#define	SSL_CONTENT_TYPE_ALERT		0x15
+#define	SSL_CONTENT_TYPE_APPLICATION_DATA	0x17
+#define	SSL_CONTENT_TYPE_CHANGE_CIPHER_SPEC	0x14
+
+#define ALPN_EXT_TYPE					0x0010
+#define SERVER_NAME_EXT_TYPE			0x0000
+#define SERVER_NAME_HOST_TYPE 			0x0000
+#define SERVER_NAME_OTHER_TYPE 			0x0008
+#define SESSION_TICKET_EXT_TYPE 		0x0023
+#define ENCRPTED_SERVER_NAME_EXT_TYPE	0xFFCE
+#define ENCRPTED_CLIENT_HELLO_EXT_TYPE	0xFE0D
+#define	EC_POINT_FORMATS_EXT_TYPE		0x000B
+
+// https://datatracker.ietf.org/doc/html/rfc7919
+// Supported Groups
+#define SUPPORTED_GROUPS_EXT_TYPE		0x000A
+
+
+#define SSL_CERTIFICATE_NUM_MAX	8
+#define SSL_CERTIFICATE_VERSION_MAX	3
 
 #define SSL_DECODER_VERSION_UNKNOWN		0x0000
 #define SSL_DECODER_VERSION_SSL_V2_0	0x0002
@@ -132,11 +170,8 @@ struct ssl_algorithm_identifier
 
 struct ssl_certificate
 {
-	int total_len;
-	int cert_len;
-	char cert_type;
-	
-	//struct ssl_l1v version;
+	uint16_t version;
+	enum ssl_certificate_type type;
 	struct ssl_validity validity;
 	struct ssl_serial_number serial;
 	struct ssl_rdn_sequence issuer;
@@ -146,4 +181,24 @@ struct ssl_certificate
 	struct ssl_subject_alter_name subject_alter;
 	struct ssl_algorithm_identifier algorithm_identifier;
 	struct ssl_signature_algorithm_id signature_algorithm;
+};
+
+
+#define SSL_MESSAGE_MAGIC	0xEF53534C
+
+struct ssl_message 
+{
+	uint32_t magic;
+    enum ssl_message_type type;
+	char uuid_bytes[SSL_UUID_BYTES_SZ];
+	struct session *ss;
+	struct ssl_decoder_plugin_env *plugin_env;
+	union
+	{
+		struct ssl_client_hello *chello;
+		struct ssl_server_hello *shello;
+		struct ssl_certificate *certificate;
+		void *data;
+	};
+	
 };

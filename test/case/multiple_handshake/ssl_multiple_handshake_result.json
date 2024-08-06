@@ -1,0 +1,23 @@
+[
+	{
+		"Tuple4": "192.168.32.27.52705>202.89.233.101.443",
+		"ssl_sni": "cn.bing.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "cd08e31494f9531f560d64c695473da9",
+		"ssl_ja3s_hash": "67bfe5d15ae567fb35fd7837f0116eec",
+		"ssl_cert_version": "v3",
+		"ssl_cert_Issuer": "Microsoft RSA TLS CA 02;Microsoft Corporation;;;;;US",
+		"ssl_cert_IssuerCN": "Microsoft RSA TLS CA 02",
+		"ssl_cert_IssuerO": "Microsoft Corporation",
+		"ssl_cert_IssuerC": "US",
+		"ssl_cert_Sub": "www.bing.com;;;;;;",
+		"ssl_cert_SubCN": "www.bing.com",
+		"ssl_cert_SubAltName": "www.bing.com;dict.bing.com.cn;*.platform.bing.com;*.bing.com;bing.com;ieonline.microsoft.com;*.windowssearch.com;cn.ieonline.microsoft.com;*.origin.bing.com;*.mm.bing.net;*.api.bing.com;ecn.dev.virtualearth.net;*.cn.bing.net;*.cn.bing.com;ssl-api.bing.com;ssl-api.bing.net;*.api.bing.net;*.bingapis.com;bingsandbox.com;feedback.microsoft.com;insertmedia.bing.office.net;r.bat.bing.com;*.r.bat.bing.com;*.dict.bing.com.cn;*.dict.bing.com;*.ssl.bing.com;*.appex.bing.com;*.platform.cn.bing.com;wp.m.bing.com;*.m.bing.com;global.bing.com;windowssearch.com;search.msn.com;*.bingsandbox.com;*.api.tiles.ditu.live.com;*.ditu.live.com;*.t0.tiles.ditu.live.com;*.t1.tiles.ditu.live.com;*.t2.tiles.ditu.live.com;*.t3.tiles.ditu.live.com;*.tiles.ditu.live.com;3d.live.com;api.search.live.com;beta.search.live.com;cnweb.search.live.com;dev.live.com;ditu.live.com;farecast.live.com;image.live.com;images.live.com;local.live.com.au;localsearch.live.com;ls4d.search.live.com;mail.live.com;mapindia.live.com;local.live.com;maps.live.com;maps.live.com.au;mindia.live.com;news.live.com;origin.cnweb.search.live.com;preview.local.live.com;search.live.com;test.maps.live.com;video.live.com;videos.live.com;virtualearth.live.com;wap.live.com;webmaster.live.com;webmasters.live.com;www.local.live.com.au;www.maps.live.com.au",
+		"ssl_cert_SerialNum": "0x7f0012e261129541195fac1a6000000012e261",
+		"ssl_cert_AgID": "1.2.840.113549.1.1.11",
+		"ssl_cert_From": "210706015313Z",
+		"ssl_cert_To": "220106015313Z",
+		"ssl_cert_SSLFPAg": "1.2.840.113549.1.1.11",
+		"name": "SSL_RESULT_1"
+	}
+]

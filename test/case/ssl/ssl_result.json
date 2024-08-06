@@ -1,0 +1,53 @@
+[
+	{
+		"Tuple4": "192.168.50.38.52391>104.16.123.96.443",
+		"ssl_sni": "ESNI",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "62a4a00de930bd0a5bee0309cc8362ed",
+		"ssl_ja3s_hash": "eb1d94daa7e0344597e756a1fb6e7054",
+		"name": "SSL_RESULT_1"
+	},
+	{
+		"Tuple4": "192.168.2.102.56768>34.138.246.121.443",
+		"ssl_sni": "public.tls-ech.dev",
+		"ssl_ech": "1",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "a195b9c006fcb23ab9a2343b0871e362",
+		"ssl_ja3s_hash": "2b0648ab686ee45e0e7c35fcfb0eea7e",
+		"name": "SSL_RESULT_2"
+	},
+	{
+		"Tuple4": "90.143.182.94.55835>93.186.227.131.443",
+		"ssl_sni": "sun9-20.userapi.com",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "6f5e62edfa5933b1332ddf8b9fb3ef9d",
+		"ssl_ja3s_hash": "2d1eb5817ece335c24904f516ad5da12",
+		"ssl_cert_version": "v3",
+		"ssl_cert_Issuer": "GlobalSign Organization Validation CA - SHA256 - G2;GlobalSign nv-sa;;;;;BE",
+		"ssl_cert_IssuerCN": "GlobalSign Organization Validation CA - SHA256 - G2",
+		"ssl_cert_IssuerO": "GlobalSign nv-sa",
+		"ssl_cert_IssuerC": "BE",
+		"ssl_cert_Sub": "*.userapi.com;V Kontakte LLC;;Saint-Petersburg;;Saint-Petersburg;RU",
+		"ssl_cert_SubCN": "*.userapi.com",
+		"ssl_cert_SubO": "V Kontakte LLC",
+		"ssl_cert_SubC": "RU",
+		"ssl_cert_SubP": "Saint-Petersburg",
+		"ssl_cert_SubL": "Saint-Petersburg",
+		"ssl_cert_SubAltName": "*.userapi.com;vk.me;*.vk-cdn.net;*.vkuserlive.com;*.vkuserlive.net;*.vkuseraudio.net;*.vkuseraudio.com;*.vkuservideo.net;*.vkuservideo.com;*.vk.me;userapi.com",
+		"ssl_cert_SerialNum": "0x5afa3a189e6a5c11e1e18b0f",
+		"ssl_cert_AgID": "1.2.840.113549.1.1.11",
+		"ssl_cert_From": "180717083809Z",
+		"ssl_cert_To": "190714162604Z",
+		"ssl_cert_SSLFPAg": "1.2.840.113549.1.1.11",
+		"name": "SSL_RESULT_3"
+	},
+	{
+		"Tuple4": "192.168.2.102.56776>34.138.246.121.443",
+		"ssl_sni": "public.tls-ech.dev",
+		"ssl_ech": "1",
+		"ssl_client_version": "TLS1.2",
+		"ssl_ja3_hash": "a195b9c006fcb23ab9a2343b0871e362",
+		"ssl_ja3s_hash": "2b0648ab686ee45e0e7c35fcfb0eea7e",
+		"name": "SSL_RESULT_4"
+	}
+]
