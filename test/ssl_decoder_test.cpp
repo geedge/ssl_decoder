@@ -367,6 +367,11 @@ int32_t ssl_decoder_test_config_load(const char *cfg_path, struct ssl_decoder_te
 			plugin_env->commit_result_enable=1;
 			fprintf(stderr, "[%s:%d] config file: %s key: [decoder.ssl.test.commit_result_enable] value is not yes or no", __FUNCTION__, __LINE__, cfg_path);
 		}
+
+		if(commit_result_enable_val.u.s!=NULL)
+		{
+			free(commit_result_enable_val.u.s);
+		}
 	}
 
 	toml_free(root);

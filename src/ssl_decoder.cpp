@@ -1063,6 +1063,26 @@ void ssl_message_free(struct session *sess, void *msg, void *msg_free_arg)
 						utarray_free(chello->extensions);
 					}
 
+					if(chello->sni!=NULL)
+					{
+						FREE(chello->sni);
+					}
+
+					if(chello->esni!=NULL)
+					{
+						FREE(chello->esni);
+					}
+
+					if(chello->ech!=NULL)
+					{
+						FREE(chello->ech);
+					}
+
+					if(chello->ja3.value!=NULL)
+					{
+						FREE(chello->ja3.value);
+					}
+					
 					FREE(message->data);
 				}
 				break;
@@ -1072,6 +1092,11 @@ void ssl_message_free(struct session *sess, void *msg, void *msg_free_arg)
 					if(shello->extensions!=NULL)
 					{
 						utarray_free(shello->extensions);
+					}
+
+					if(shello->ja3s.value!=NULL)
+					{
+						FREE(shello->ja3s.value);
 					}
 
 					FREE(message->data);
@@ -1415,6 +1440,8 @@ int32_t ssl_decoder_config_load(const char *cfg_path, struct ssl_decoder_plugin_
 			plugin_env->stat.per_thread_enable=SSL_DECODER_FALSE;
 			fprintf(stderr, "[%s:%d] config file: %s key: [decoder.ssl.local_stat.stat_per_thread_enable] value is not yes or no", __FUNCTION__, __LINE__, cfg_path);
 		}
+
+		free(stat_per_thread_enable_val.u.s);
 	}
 
 	toml_datum_t name=toml_string_in(local_stat_tbl, "stat_name");
@@ -1426,6 +1453,7 @@ int32_t ssl_decoder_config_load(const char *cfg_path, struct ssl_decoder_plugin_
 	else
 	{
 		strncpy(plugin_env->stat.name, name.u.s, sizeof(plugin_env->stat.name));
+		free(name.u.s);
 	}
 
 	toml_datum_t output_path=toml_string_in(local_stat_tbl, "stat_output");
@@ -1437,6 +1465,7 @@ int32_t ssl_decoder_config_load(const char *cfg_path, struct ssl_decoder_plugin_
 	else
 	{
 		strncpy(plugin_env->stat.path, output_path.u.s, sizeof(plugin_env->stat.path));
+		free(output_path.u.s);
 	}
 
 	toml_free(root);
@@ -1560,6 +1589,11 @@ extern "C" void ssl_decoder_exit(void *penv)
 	{
 		stellar_session_mq_destroy_topic(plugin_env->st, plugin_env->tcp_stream.topic_id);
 		plugin_env->tcp_stream.topic_id=-1;
+	}
+
+	if(plugin_env->net_port!=NULL)
+	{
+		FREE(plugin_env->net_port);
 	}
 
     FREE(penv);
