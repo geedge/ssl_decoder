@@ -5,7 +5,7 @@ variables:
   BUILD_PADDING_PREFIX: /tmp/padding_for_CPACK_RPM_BUILD_SOURCE_DIRS_PREFIX_PREFIX_PREFIX_PREFIX_PREFIX_PREFIX/
   INSTALL_PREFIX: "/opt/tsg/"
   INSTALL_DEPENDENCY_LIBRARY: libMESA_handle_logger-devel libMESA_prof_load-devel libMESA_htable libMESA_jump_layer
-                              sapp-devel libcjson-devel libbreakpad_mini
+                              libMESA_field_stat2-devel  libfieldstat3-devel sapp-devel libcjson-devel libbreakpad_mini
                               framework_env libasan stellar-on-sapp-devel libfieldstat4-devel
   SYMBOL_TARGET: ssl_decoder
   REPO_PREFIX: protocol
@@ -115,27 +115,6 @@ latest_env_version_test_in_centos8:
 ###############################################################################
 # upload 
 ###############################################################################
-# .define_before_upload_centos7:
-#   stage: upload
-#   image: $BUILD_IMAGE_CENTOS7
-#   before_script:
-#     - pwd; ls -l ; cd build ; ls -l
-#     - cp /root/rpm_upload_tools.py ./
-#   variables:
-#     PULP3_REPO_NAME:  $REPO_PREFIX-stable-x86_64.el7
-#     PULP3_DIST_NAME:  $REPO_PREFIX-stable-x86_64.el7
-#   only:
-#     - tags
-#   tags:
-#     - share 
-
-# rpm_upload_for_centos7:
-#   extends: .define_before_upload_centos7
-#   dependencies:
-#     - release_build_debug_for_centos7
-#     - release_build_for_centos7
-#   script:
-#     - python3 rpm_upload_tools.py $PULP3_REPO_NAME $PULP3_DIST_NAME *.rpm    
 
 .define_before_upload_centos8:
   stage: upload
